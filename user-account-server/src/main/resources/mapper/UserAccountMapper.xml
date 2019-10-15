@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.account.dao.UserAccountDao">
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="com.user.account.entity.model.UserAccount">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="account" property="account" />
+		<result column="bank_no" property="bankNo" />
+		<result column="bank_money" property="bankMoney" />
+		<result column="alipay_account" property="alipayAccount" />
+		<result column="alipay_money" property="alipayMoney" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+		<result column="enable" property="enable" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,user_id,account,bank_no,bank_money,alipay_account,
+		alipay_money,created_time,updated_time,enable
+	</sql>
+	
+	<!-- 根据id查询 ${codeName} -->
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM t_bu_user_account WHERE id=1
+	</select>
+
+	<select id="findPage" resultMap="BaseResultMap" parameterType="com.user.account.entity.model.UserAccount">
+		SELECT * FROM t_bu_user_account
+	</select>
+	    
+    
+</mapper>

@@ -1,0 +1,72 @@
+#开发环境配置
+spring: 
+  profiles: dev
+  
+eureka:
+  server: 
+    hostname: 127.0.0.1
+---
+#测试环境配置
+spring: 
+  profiles: test
+  
+eureka:
+  server: 
+    hostname: 192.168.4.101
+---
+#彩讯k8s环境配置
+spring:
+  profiles: k8s
+
+eureka:
+  server:
+    hostname: 192.168.8.144
+---
+#生产环境配置
+spring:
+  profiles: pro
+
+eureka:
+  server:
+    hostname: 172.17.28.40
+---
+#uat环境配置
+spring:
+  profiles: uat
+
+eureka:
+  server:
+    hostname: 127.0.0.1
+---
+#config
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      fail-fast: true
+#      label: config
+      profile: ${spring.profiles.active}
+      retry:
+        initial-interval: 2000
+        max-attempts: 6
+        max-interval: 4000
+        multiplier: 1.2
+
+#eureka center
+eureka:
+  client:
+    registry-fetch-interval-seconds: 30
+    serviceUrl:
+      defaultZone: http://11:11@127.0.0.1:8000/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    prefer-ip-address: true
+    metadata-map:
+      zone: ABC      # eureka可以理解的元数据
+      lilizhou: BBC  # 不会影响客户端行为
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 30
+    
+
