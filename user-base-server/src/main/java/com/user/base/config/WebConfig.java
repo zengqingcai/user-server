@@ -1,13 +1,16 @@
 package com.user.base.config;
 
+import com.user.base.interceptor.AccessInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
-@SuppressWarnings("deprecation")
+
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurationSupport {
+
+    @Autowired
+    private AccessInterceptor accessInterceptor;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -24,8 +27,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 .allowedMethods("*")
                 .allowedOrigins("*");
     }
-    
-    
-    
 
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+         registry.addInterceptor(accessInterceptor);
+    }
 }

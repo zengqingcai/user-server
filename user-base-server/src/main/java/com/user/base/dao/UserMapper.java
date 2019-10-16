@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
     
-   User selectByPrimary(String id);
+   User queryByPrimary(String id);
     
-   List<User> findPage(User user);
+   List<User> queryUserByParams(User user);
+
+   User queryUserByUserCode(String usercode);
    
    int insertSelective(User user);
    

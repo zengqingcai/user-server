@@ -17,14 +17,22 @@
   </sql>
   
   
-  <select id="selectByPrimary" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryByPrimary" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from t_sys_user
     where id = #{id}
   </select>
+
+  <select id="queryUserByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />
+    from t_sys_user
+    where locked = '1'
+    and usercode = #{usercode,jdbcType=VARCHAR}
+    limit 1
+  </select>
   
-  <select id="findPage" parameterType="com.user.base.entity.model.User" resultMap="BaseResultMap" >
+  <select id="queryUserByParams" parameterType="com.user.base.entity.model.User" resultMap="BaseResultMap" >
     select <include refid="Base_Column_List" />
     from t_sys_user
     where 1 = 1
@@ -73,7 +81,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-
       <if test="usercode != null and usercode !=''" >
         #{usercode,jdbcType=VARCHAR},
       </if>

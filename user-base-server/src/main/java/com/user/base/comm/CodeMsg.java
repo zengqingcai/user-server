@@ -12,7 +12,7 @@ public class CodeMsg {
 	private CodeMsg( ) {
 	}
 			
-	private CodeMsg(String code, String message ) {
+	public CodeMsg(String code, String message ) {
 		this.code = code;
 		this.message = message;
 	}

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import com.xhg.message.client.support.scan.ConsumerAutoInvoker;
 
 @Controller
 @RequestMapping("/user")
@@ -40,18 +39,6 @@ public class UserController {
 
         Integer integer = userService.saveUser(user);
         return ResponseBean.success(CodeMsg.SUCCESS,integer);
-
-    }
-
-
-
-
-
-    @RequestMapping(value = "toPage",method = RequestMethod.GET)
-    public String toPage(ModelMap map){
-        User user = new User();
-        map.put("userList",userService.findPage(user));
-        return "userList";
 
     }
 

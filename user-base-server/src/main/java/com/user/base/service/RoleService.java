@@ -1,10 +1,8 @@
-package com.user.base.dao;
+package com.user.base.service;
 
 import com.user.base.entity.model.Role;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RoleMapper {
+public interface RoleService {
 
     Role queryByPrimaryKey(Integer id);
 
@@ -13,6 +11,4 @@ public interface RoleMapper {
     Integer insertSelective(Role role);
 
     Integer updateSelective(Role role);
-
-
 }

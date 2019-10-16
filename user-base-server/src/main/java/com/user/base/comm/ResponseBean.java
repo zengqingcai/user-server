@@ -35,8 +35,8 @@ public class ResponseBean<T> {
     /**
      *  失败时候的调用
      * */
-    public static  <T> ResponseBean<T> error(CodeMsg codeMsg){
-        return new ResponseBean<T>(codeMsg);
+    public static  <T> ResponseBean<T> error(CodeMsg codeMsg,T data){
+        return new ResponseBean<T>(codeMsg,data);
     }
 
 
@@ -57,6 +57,14 @@ public class ResponseBean<T> {
             this.code = codeMsg.getCode();
             this.message = codeMsg.getMessage();
         }
+    }
+
+    private ResponseBean(CodeMsg codeMsg,T data) {
+        if(codeMsg != null) {
+            this.code = codeMsg.getCode();
+            this.message = codeMsg.getMessage();
+        }
+        this.data = data;
     }
 
 

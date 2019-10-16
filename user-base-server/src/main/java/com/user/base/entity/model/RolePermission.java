@@ -7,7 +7,7 @@ import lombok.Data;
 public class RolePermission {
 
 
-    private String id;
+    private Integer id;
 
     private Integer sysRoleId;
 
