@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserMapper userMapper;
 
-	@Override
 	@TestAccess(value = "1111")
+	@Override
 	public List<User> findPage(User user) {
 		System.out.println();
 		PageHelper.startPage(1, 10);

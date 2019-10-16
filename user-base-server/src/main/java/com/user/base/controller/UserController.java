@@ -1,5 +1,6 @@
 package com.user.base.controller;
 
+import com.user.base.annotation.TestAccess;
 import com.user.base.comm.CodeMsg;
 import com.user.base.comm.RequestBean;
 import com.user.base.comm.ResponseBean;
@@ -21,6 +22,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
 
     @RequestMapping(value = "findPage",method = RequestMethod.POST)
     @ApiOperation(value = "查询用户分页列表")

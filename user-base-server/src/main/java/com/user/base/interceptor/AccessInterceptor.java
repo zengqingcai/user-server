@@ -10,7 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+//https://www.cnblogs.com/zengcheng623/p/10736947.html
 @Service
 public class AccessInterceptor extends HandlerInterceptorAdapter{
 	
