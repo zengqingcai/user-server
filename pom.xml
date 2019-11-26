@@ -75,7 +75,8 @@
 	<modules>
 		<module>user-base-server</module>
 		<module>user-account-server</module>
-	</modules>
+        <module>user-common</module>
+    </modules>
 	
 	<build>
 	    <plugins>
