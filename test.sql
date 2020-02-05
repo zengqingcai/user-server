@@ -2,7 +2,7 @@
 SQLyog Ultimate v11.33 (64 bit)
 MySQL - 5.6.38 : Database - test
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -15,6 +15,337 @@ MySQL - 5.6.38 : Database - test
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`test` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `test`;
+
+/*Table structure for table `annex` */
+
+DROP TABLE IF EXISTS `annex`;
+
+CREATE TABLE `annex` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL COMMENT '保存路径',
+  `type` varchar(200) DEFAULT NULL COMMENT '附件类型',
+  `resource` varchar(200) DEFAULT NULL COMMENT '来源',
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目附件表';
+
+/*Data for the table `annex` */
+
+/*Table structure for table `depart` */
+
+DROP TABLE IF EXISTS `depart`;
+
+CREATE TABLE `depart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `desc` text,
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='部门表';
+
+/*Data for the table `depart` */
+
+insert  into `depart`(`id`,`name`,`desc`,`created_time`,`updated_time`,`created_user_id`,`updated_user_id`,`enable`) values (1,'技术研发部','技术研发','2018-05-26 20:23:45','2018-05-26 20:23:47',1,1,1),(2,'软件测试','软件测试','2018-05-26 20:24:13','2018-05-26 20:24:14',1,1,1),(3,'行政部','行政部','2018-05-26 20:24:41','2018-05-26 20:24:43',1,1,1);
+
+/*Table structure for table `feelback` */
+
+DROP TABLE IF EXISTS `feelback`;
+
+CREATE TABLE `feelback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `theme` varchar(200) DEFAULT NULL,
+  `desc` varchar(200) DEFAULT NULL,
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `feelback` */
+
+/*Table structure for table `position` */
+
+DROP TABLE IF EXISTS `position`;
+
+CREATE TABLE `position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `de_id` int(11) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `desc` varchar(200) DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `position` */
+
+/*Table structure for table `project` */
+
+DROP TABLE IF EXISTS `project`;
+
+CREATE TABLE `project` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) DEFAULT NULL COMMENT '项目编号',
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `desc` text COMMENT '描述',
+  `manager` int(11) NOT NULL COMMENT '负责人',
+  `partner` varchar(200) DEFAULT NULL COMMENT '参与人',
+  `level` int(11) DEFAULT '1' COMMENT '项目级别',
+  `status` int(11) DEFAULT '1' COMMENT '项目状态',
+  `percent` varchar(100) DEFAULT NULL COMMENT '进度',
+  `plan_time` datetime DEFAULT NULL COMMENT '计划完成时间',
+  `start_time` datetime DEFAULT NULL COMMENT '实际开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '实际结束时间',
+  `created_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `updated_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `created_user_id` int(11) DEFAULT '1' COMMENT '创建人',
+  `updated_user_id` int(11) DEFAULT '1' COMMENT '修改人',
+  `enable` int(11) DEFAULT '1' COMMENT '是否可用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目记录表';
+
+/*Data for the table `project` */
+
+/*Table structure for table `qrtz_blob_triggers` */
+
+DROP TABLE IF EXISTS `qrtz_blob_triggers`;
+
+CREATE TABLE `qrtz_blob_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `BLOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_blob_triggers` */
+
+/*Table structure for table `qrtz_calendars` */
+
+DROP TABLE IF EXISTS `qrtz_calendars`;
+
+CREATE TABLE `qrtz_calendars` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `CALENDAR_NAME` varchar(200) NOT NULL,
+  `CALENDAR` blob NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`CALENDAR_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_calendars` */
+
+/*Table structure for table `qrtz_cron_triggers` */
+
+DROP TABLE IF EXISTS `qrtz_cron_triggers`;
+
+CREATE TABLE `qrtz_cron_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `CRON_EXPRESSION` varchar(200) NOT NULL,
+  `TIME_ZONE_ID` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_cron_triggers` */
+
+/*Table structure for table `qrtz_fired_triggers` */
+
+DROP TABLE IF EXISTS `qrtz_fired_triggers`;
+
+CREATE TABLE `qrtz_fired_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `ENTRY_ID` varchar(95) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `INSTANCE_NAME` varchar(200) NOT NULL,
+  `FIRED_TIME` bigint(13) NOT NULL,
+  `SCHED_TIME` bigint(13) NOT NULL,
+  `PRIORITY` int(11) NOT NULL,
+  `STATE` varchar(16) NOT NULL,
+  `JOB_NAME` varchar(200) DEFAULT NULL,
+  `JOB_GROUP` varchar(200) DEFAULT NULL,
+  `IS_NONCONCURRENT` varchar(1) DEFAULT NULL,
+  `REQUESTS_RECOVERY` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`ENTRY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_fired_triggers` */
+
+/*Table structure for table `qrtz_job_details` */
+
+DROP TABLE IF EXISTS `qrtz_job_details`;
+
+CREATE TABLE `qrtz_job_details` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `JOB_NAME` varchar(200) NOT NULL,
+  `JOB_GROUP` varchar(200) NOT NULL,
+  `DESCRIPTION` varchar(250) DEFAULT NULL,
+  `JOB_CLASS_NAME` varchar(250) NOT NULL,
+  `IS_DURABLE` varchar(1) NOT NULL,
+  `IS_NONCONCURRENT` varchar(1) NOT NULL,
+  `IS_UPDATE_DATA` varchar(1) NOT NULL,
+  `REQUESTS_RECOVERY` varchar(1) NOT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_job_details` */
+
+/*Table structure for table `qrtz_locks` */
+
+DROP TABLE IF EXISTS `qrtz_locks`;
+
+CREATE TABLE `qrtz_locks` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `LOCK_NAME` varchar(40) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_locks` */
+
+/*Table structure for table `qrtz_paused_trigger_grps` */
+
+DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
+
+CREATE TABLE `qrtz_paused_trigger_grps` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_paused_trigger_grps` */
+
+/*Table structure for table `qrtz_scheduler_state` */
+
+DROP TABLE IF EXISTS `qrtz_scheduler_state`;
+
+CREATE TABLE `qrtz_scheduler_state` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `INSTANCE_NAME` varchar(200) NOT NULL,
+  `LAST_CHECKIN_TIME` bigint(13) NOT NULL,
+  `CHECKIN_INTERVAL` bigint(13) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_scheduler_state` */
+
+/*Table structure for table `qrtz_simple_triggers` */
+
+DROP TABLE IF EXISTS `qrtz_simple_triggers`;
+
+CREATE TABLE `qrtz_simple_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `REPEAT_COUNT` bigint(7) NOT NULL,
+  `REPEAT_INTERVAL` bigint(12) NOT NULL,
+  `TIMES_TRIGGERED` bigint(10) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_simple_triggers` */
+
+/*Table structure for table `qrtz_simprop_triggers` */
+
+DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
+
+CREATE TABLE `qrtz_simprop_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `STR_PROP_1` varchar(512) DEFAULT NULL,
+  `STR_PROP_2` varchar(512) DEFAULT NULL,
+  `STR_PROP_3` varchar(512) DEFAULT NULL,
+  `INT_PROP_1` int(11) DEFAULT NULL,
+  `INT_PROP_2` int(11) DEFAULT NULL,
+  `LONG_PROP_1` bigint(20) DEFAULT NULL,
+  `LONG_PROP_2` bigint(20) DEFAULT NULL,
+  `DEC_PROP_1` decimal(13,4) DEFAULT NULL,
+  `DEC_PROP_2` decimal(13,4) DEFAULT NULL,
+  `BOOL_PROP_1` varchar(1) DEFAULT NULL,
+  `BOOL_PROP_2` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_simprop_triggers` */
+
+/*Table structure for table `qrtz_triggers` */
+
+DROP TABLE IF EXISTS `qrtz_triggers`;
+
+CREATE TABLE `qrtz_triggers` (
+  `SCHED_NAME` varchar(120) NOT NULL,
+  `TRIGGER_NAME` varchar(200) NOT NULL,
+  `TRIGGER_GROUP` varchar(200) NOT NULL,
+  `JOB_NAME` varchar(200) NOT NULL,
+  `JOB_GROUP` varchar(200) NOT NULL,
+  `DESCRIPTION` varchar(250) DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint(13) DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint(13) DEFAULT NULL,
+  `PRIORITY` int(11) DEFAULT NULL,
+  `TRIGGER_STATE` varchar(16) NOT NULL,
+  `TRIGGER_TYPE` varchar(8) NOT NULL,
+  `START_TIME` bigint(13) NOT NULL,
+  `END_TIME` bigint(13) DEFAULT NULL,
+  `CALENDAR_NAME` varchar(200) DEFAULT NULL,
+  `MISFIRE_INSTR` smallint(2) DEFAULT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `qrtz_triggers` */
+
+/*Table structure for table `role` */
+
+DROP TABLE IF EXISTS `role`;
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `desc` text,
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `role` */
+
+/*Table structure for table `sequence` */
+
+DROP TABLE IF EXISTS `sequence`;
+
+CREATE TABLE `sequence` (
+  `name` varchar(50) CHARACTER SET latin1 NOT NULL COMMENT '序列号名称',
+  `current_value` int(11) NOT NULL COMMENT '当前数',
+  `increment` int(11) NOT NULL DEFAULT '1' COMMENT '单位增长数目',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='自增长数据表';
+
+/*Data for the table `sequence` */
+
+insert  into `sequence`(`name`,`current_value`,`increment`) values ('Seq1',8,1),('Seq2',12,2);
 
 /*Table structure for table `t_bu_base_user` */
 
@@ -60,6 +391,42 @@ CREATE TABLE `t_bu_hospital` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='医院信息表';
 
 /*Data for the table `t_bu_hospital` */
+
+/*Table structure for table `t_bu_medicine_category` */
+
+DROP TABLE IF EXISTS `t_bu_medicine_category`;
+
+CREATE TABLE `t_bu_medicine_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `category_name` varchar(100) NOT NULL COMMENT '种类编号',
+  `category_code` varchar(100) NOT NULL COMMENT '种类名称',
+  `category_of` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:中药 1:西药',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0:禁用 1:启用',
+  `ct` datetime DEFAULT NULL,
+  `ut` datetime DEFAULT CURRENT_TIMESTAMP,
+  `cid` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) DEFAULT NULL,
+  `ava` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:无效 1:有效',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='药品分类表';
+
+/*Data for the table `t_bu_medicine_category` */
+
+insert  into `t_bu_medicine_category`(`id`,`category_name`,`category_code`,`category_of`,`status`,`ct`,`ut`,`cid`,`uid`,`ava`) values (1,'OTC','1001',1,1,'2019-12-06 11:36:59','2019-12-06 11:37:02',1,1,1),(2,'冲剂','1002',1,1,'2019-12-04 11:40:08','2019-12-06 11:40:02',1,1,1),(3,'颗粒','1003',1,1,'2019-12-06 11:40:46','2019-12-06 11:40:54',1,1,1),(4,'口服液','1004',1,1,'2019-12-06 11:41:31','2019-12-06 11:41:39',1,1,1),(5,'注射液','1005',1,1,'2019-12-06 11:42:14','2019-12-06 11:42:16',1,1,1);
+
+/*Table structure for table `t_bu_medicine_info` */
+
+DROP TABLE IF EXISTS `t_bu_medicine_info`;
+
+CREATE TABLE `t_bu_medicine_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `medicine_category_id` int(11) NOT NULL COMMENT '分类id',
+  `medicine_name` varchar(500) DEFAULT NULL COMMENT '药品名称',
+  `medicine_code` varchar(100) DEFAULT NULL COMMENT '药品编码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='药品信息表';
+
+/*Data for the table `t_bu_medicine_info` */
 
 /*Table structure for table `t_bu_user_account` */
 
@@ -140,20 +507,24 @@ insert  into `t_sys_params`(`id`,`pid`,`params_key`,`params_value`,`params_desc`
 DROP TABLE IF EXISTS `t_sys_permission`;
 
 CREATE TABLE `t_sys_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) DEFAULT NULL COMMENT '名称',
-  `type` varchar(200) DEFAULT NULL COMMENT '类型',
-  `url` varchar(200) DEFAULT NULL COMMENT 'url',
-  `percode` varchar(200) DEFAULT NULL,
-  `parentid` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
-  `sortstring` varchar(200) DEFAULT NULL,
-  `available` char(1) NOT NULL DEFAULT '1' COMMENT '是否有效',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='权限表';
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '权限ID',
+  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父节点ID',
+  `code` varchar(50) NOT NULL COMMENT '权限代码',
+  `name` varchar(50) NOT NULL COMMENT '权限名称',
+  `icon` varchar(200) NOT NULL COMMENT '图标url',
+  `url` varchar(200) NOT NULL COMMENT '功能url',
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '权限类型 0:菜单  1:按钮 2:超链接',
+  `sort` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '使用状态(0:禁用 1:有效)',
+  `description` varchar(500) DEFAULT NULL COMMENT '备注描述',
+  `operate_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_permission_code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='权限表';
 
 /*Data for the table `t_sys_permission` */
 
-insert  into `t_sys_permission`(`id`,`name`,`type`,`url`,`percode`,`parentid`,`sortstring`,`available`) values (1,'用户查询','1',NULL,NULL,0,NULL,'1');
+insert  into `t_sys_permission`(`id`,`parent_id`,`code`,`name`,`icon`,`url`,`type`,`sort`,`status`,`description`,`operate_time`) values (1,0,'sys_setting','系统设置管理','http://img.baidu.com','javastript(0);',0,0,1,'系统设置','2019-12-06 14:30:35'),(2,0,'string','string','string','string',0,0,0,'string','2020-01-07 22:14:14');
 
 /*Table structure for table `t_sys_role` */
 
@@ -164,11 +535,11 @@ CREATE TABLE `t_sys_role` (
   `name` varchar(200) DEFAULT NULL COMMENT '角色名称',
   `available` char(1) DEFAULT '0' COMMENT '是否有效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_sys_role` */
 
-insert  into `t_sys_role`(`id`,`name`,`available`) values (1,'超级管理员','1');
+insert  into `t_sys_role`(`id`,`name`,`available`) values (1,'超级管理员','1'),(2,'开发','1');
 
 /*Table structure for table `t_sys_role_permission` */
 
@@ -197,12 +568,13 @@ CREATE TABLE `t_sys_user` (
   `salt` varchar(200) DEFAULT NULL COMMENT '盐值',
   `locked` char(1) NOT NULL DEFAULT '1' COMMENT '是否有效',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNI_CODE` (`usercode`,`locked`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `UNI_CODE` (`usercode`,`locked`),
+  UNIQUE KEY `usercode` (`usercode`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_sys_user` */
 
-insert  into `t_sys_user`(`id`,`usercode`,`username`,`password`,`salt`,`locked`) values (1,'admin','张三','CpievEp3tWpuK7exnZldGFzkQJDBPimEt+zG1EbUth6pmRt2pMLwSxtNJEhBRJRU','123','1');
+insert  into `t_sys_user`(`id`,`usercode`,`username`,`password`,`salt`,`locked`) values (1,'admin','张三','CpievEp3tWpuK7exnZldGFzkQJDBPimEt+zG1EbUth6pmRt2pMLwSxtNJEhBRJRU','123','1'),(3,'admin1','aa','11','11','1');
 
 /*Table structure for table `t_sys_user_role` */
 
@@ -218,6 +590,72 @@ CREATE TABLE `t_sys_user_role` (
 /*Data for the table `t_sys_user_role` */
 
 insert  into `t_sys_user_role`(`id`,`sys_user_id`,`sys_role_id`) values (1,1,1);
+
+/*Table structure for table `task` */
+
+DROP TABLE IF EXISTS `task`;
+
+CREATE TABLE `task` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `project_id` int(11) DEFAULT NULL COMMENT '项目id',
+  `level` int(11) DEFAULT '1' COMMENT '级别',
+  `percent` varchar(200) DEFAULT NULL COMMENT '进度',
+  `status` int(11) DEFAULT '1' COMMENT '状态',
+  `num` int(11) DEFAULT '1' COMMENT '参与人数',
+  `plan_time` datetime DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `task` */
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `account` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `phone` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `position` varchar(200) DEFAULT NULL COMMENT '职位',
+  `sex` int(11) DEFAULT '0',
+  `created_time` datetime DEFAULT NULL,
+  `updated_time` datetime DEFAULT NULL,
+  `created_user_id` int(11) DEFAULT '1',
+  `updated_user_id` int(11) DEFAULT '1',
+  `enable` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='员工表';
+
+/*Data for the table `user` */
+
+insert  into `user`(`id`,`name`,`account`,`password`,`phone`,`email`,`position`,`sex`,`created_time`,`updated_time`,`created_user_id`,`updated_user_id`,`enable`) values (1,'张三','abc','123456','13544361981','13544361981@163.com',NULL,0,'2018-05-20 15:10:02','2018-05-20 15:10:04',1,1,1),(2,'李四','aaa','123456','13888888888','13544361981@163.com',NULL,0,'2018-05-26 20:23:11','2018-05-26 20:23:13',1,1,1),(3,'王五','bbb','123456','13999999999','123456@163.com',NULL,1,'2018-05-26 20:26:10','2018-05-26 20:26:11',1,1,1);
+
+/*Table structure for table `user_depart` */
+
+DROP TABLE IF EXISTS `user_depart`;
+
+CREATE TABLE `user_depart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `depart_id` int(11) DEFAULT NULL,
+  `is_manager` int(11) DEFAULT NULL COMMENT '是否是管理员',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `user_depart` */
+
+insert  into `user_depart`(`id`,`user_id`,`depart_id`,`is_manager`) values (1,1,2,1),(2,2,2,1),(3,2,1,0),(4,3,3,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
