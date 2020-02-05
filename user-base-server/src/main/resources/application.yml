@@ -30,6 +30,39 @@ spring:
           content-type: text/html
     #热部署文件，页面不产生缓存，及时更新
     cache: false
+  #redis setting
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    timeout: 2000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+  #rabbitmq
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+        simple:
+          concurrency: 10
+          max-concurrency: 10
+          prefetch: 1
+          auto-startup: true
+          default-requeue-rejected: true
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000ms
+        max-attempts: 3
+        max-interval: 10000ms
+        multiplier: 1.0
+
   resources:
     chain:
       strategy:
@@ -56,7 +89,14 @@ hystrix:
         isolation:
           strategy: SEMAPHORE
 
-#自定义注解
+#自定义配置
+mail:
+  smtp:
+    auth: true
+    host: smtp.qq.com
+    port: 587
+  user: 920555576@qq.com
+  password: dnzjruwrozcmbbdf
 
 
 

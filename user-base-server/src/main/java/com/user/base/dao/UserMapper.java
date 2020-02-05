@@ -20,4 +20,6 @@ public interface UserMapper {
    int insert(User user);
     
    int updateBySelective(User user);
+
+   int updateSetStatus(User user);
 }

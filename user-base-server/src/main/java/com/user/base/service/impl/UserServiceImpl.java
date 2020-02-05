@@ -1,9 +1,14 @@
 package com.user.base.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.user.base.annotation.TestAccess;
+import com.user.common.exception.BuExceptionEnum;
+import com.user.common.exception.BusinessException;
+import com.user.common.utils.codec.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.user.base.dao.UserMapper;
@@ -19,15 +24,24 @@ public class UserServiceImpl implements UserService{
 
 	@TestAccess(value = "1111")
 	@Override
-	public List<User> findPage(User user) {
+	public PageInfo<User> findPage(User user) {
 		System.out.println();
 		PageHelper.startPage(1, 10);
 		List<User> list = userMapper.queryUserByParams(user);
-		return list;
+
+		PageInfo<User> pageInfo = new PageInfo<>(list);
+
+		return pageInfo;
 	}
 
 	@Override
 	public Integer saveUser(User user) {
+
+		if(userMapper.queryUserByUserCode(user.getUsercode())!=null){
+			throw new BusinessException(BuExceptionEnum.ACCOUNT_AGAINT);
+		}
+		String password = MD5Util.md5(user.getPassword());
+		user.setPassword(password);
 		return userMapper.insertSelective(user);
 	}
 
@@ -58,7 +72,26 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int updateBySelective(User user) {
+		if(userMapper.queryUserByUserCode(user.getUsercode())!=null){
+			throw new BusinessException(BuExceptionEnum.ACCOUNT_AGAINT);
+		}
+		//需要修改密码
+		if(!user.getPassword().equals("123456")){
+            user.setPassword(MD5Util.md5(user.getPassword()));
+        }
 		return userMapper.updateBySelective(user);
 	}
+
+	@Override
+	public Integer saveUser(Map<String, Object> map) {
+
+
+		return null;
+	}
+
+    @Override
+	public Integer updateUserStatus(User user){
+        return userMapper.updateSetStatus(user);
+    }
 
 }

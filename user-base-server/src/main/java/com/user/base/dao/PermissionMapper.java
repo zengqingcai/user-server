@@ -1,17 +1,20 @@
 package com.user.base.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.user.base.entity.model.Permission;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PermissionMapper {
+import java.util.List;
 
-    Integer insert(Permission record);
+@Repository
+public interface PermissionMapper extends BaseMapper<Permission> {
 
     Integer insertSelective(Permission record);
 
     Integer updateBySelective(Permission recode);
 
     Permission selectByPrimary(Integer id);
+
+    List<Permission> queryByParams(Permission params);
 }

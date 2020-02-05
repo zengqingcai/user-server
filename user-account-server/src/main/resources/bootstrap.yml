@@ -39,27 +39,27 @@ eureka:
     hostname: 127.0.0.1
 ---
 #config
-spring:
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
-      fail-fast: true
-#      label: config
-      profile: ${spring.profiles.active}
-      retry:
-        initial-interval: 2000
-        max-attempts: 6
-        max-interval: 4000
-        multiplier: 1.2
+#spring:
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      fail-fast: true
+##      label: config
+#      profile: ${spring.profiles.active}
+#      retry:
+#        initial-interval: 2000
+#        max-attempts: 6
+#        max-interval: 4000
+#        multiplier: 1.2
 
 #eureka center
 eureka:
   client:
     registry-fetch-interval-seconds: 30
     serviceUrl:
-      defaultZone: http://11:11@127.0.0.1:8000/eureka/
+      defaultZone: http://11:11@127.0.0.1:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
     prefer-ip-address: true

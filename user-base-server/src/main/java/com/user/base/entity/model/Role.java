@@ -1,11 +1,13 @@
 package com.user.base.entity.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
+@TableName("t_sys_role")
 public class Role {
 
 
@@ -16,5 +18,10 @@ public class Role {
     private String name;
 
     private String available;
+
+    private Integer currentPage = 1;
+
+    private Integer pageSize = 10;
+
 
 }

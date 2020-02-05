@@ -190,7 +190,22 @@
                     <p th:text="${user.username}"></p>
                 </td>
                 <td>
-                    dddd
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success" th:onclick="|empView(${Employees.employeeid})|">查看</button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" style="min-width: 120px; left: -10px; padding: 5px;">
+                            <li><label th:if="${(Employees.byisuse != 2) and (Employees.byisuse != 3)}"><input value="修改" type="button" class="btn btn-success" th:onclick="|empEdit(${Employees.employeeid})|"/></label></li>
+                            <li><label th:if="${(Employees.byisuse != 2) and (Employees.byisuse != 0) and (Employees.byisuse != 3)}"><input value="禁用" type="button" class="btn btn-success" th:onclick="|empDel(${Employees.employeeid})|"/></label></li>
+                            <li><label th:if="${(Employees.byisuse != 2) and (Employees.byisuse != 3)}"><input value="密码初始化" type="button" class="btn btn-success" th:onclick="|empPassWordEdit(${Employees.employeeid})|"/></label></li>
+                            <li><label th:if="${(Employees.byisuse != 2) and (Employees.byisuse != 3)}"><input value="加入黑名单" type="button" class="btn btn-success" th:onclick="|blacklist(${Employees.employeeid},1)|"/></label></li>
+                            <li><label th:if="${Employees.byisuse eq 2}">  |  <input value="取消黑名单" type="button" class="btn btn-success" th:onclick="|blacklist(${Employees.employeeid},2)|"/></label></li>
+                            <li><label th:if="${Employees.byisuse == 3 and Employees.sources=='0'}"><input value="审核" type="button" class="btn btn-success" th:onclick="|empAudit(${Employees.employeeid})|"/></label></li>
+                            <li><label th:if="${(Employees.byisuse != 2) and (Employees.byisuse != 3) and (Employees.sources=='0')}"><input value="通用系统" type="button" class="btn btn-success" th:onclick="|editEmpRsource(${Employees.employeeid})|"/></label></li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             </tbody>

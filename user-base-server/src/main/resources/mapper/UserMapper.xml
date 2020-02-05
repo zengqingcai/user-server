@@ -121,4 +121,9 @@
     </set>
     where id = #{id}
   </update>
+
+
+  <update id="updateSetStatus" parameterType="com.user.base.entity.model.User" >
+    update t_sys_user set locked = #{locked,jdbcType=CHAR}  where id = #{id}
+  </update>
 </mapper>

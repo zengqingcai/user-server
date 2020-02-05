@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class User {
 
-    private String id;
+    private Integer id;
 
     @NotNull(message = "usercode不能为空")
     private String usercode;
@@ -16,7 +16,7 @@ public class User {
     private String username;
 
     @NotNull(message = "password不能为空")
-    private String password;
+    private String password="123456";
 
     @NotNull(message = "salt 不能为空")
     private String salt;
