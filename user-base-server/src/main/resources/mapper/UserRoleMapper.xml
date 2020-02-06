@@ -30,10 +30,10 @@
       and id = #{id,jdbcType=INTEGER}
     </if>
     <if test="sysUserId != null" >
-      and sys_user_id = #{sys_user_id,jdbcType=INTEGER}
+      and sys_user_id = #{sysUserId,jdbcType=INTEGER}
     </if>
     <if test="sysRoleId != null" >
-      and sys_role_id = #{sys_role_id,jdbcType=INTEGER}
+      and sys_role_id = #{sysRoleId,jdbcType=INTEGER}
     </if>
   </delete>
   <insert id="insertSelective" parameterType="com.user.base.entity.model.UserRole" >

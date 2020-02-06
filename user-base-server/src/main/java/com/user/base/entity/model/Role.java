@@ -13,7 +13,7 @@ public class Role {
 
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "角色名称不能为null")
     @NotEmpty(message = "角色名称不能为空")
     private String name;
 

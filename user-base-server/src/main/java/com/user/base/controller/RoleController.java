@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 /**
  * @Authod:zeng
  * @Date: 2020/1/7 16:39
@@ -32,7 +34,7 @@ public class RoleController {
     @RequestMapping(value = "/findPage",method = RequestMethod.POST)
     @ApiOperation(value = "查询角色分页列表")
     @ResponseBody
-    public ResponseBean<PageInfo<Role>> findPage(@RequestBody RequestBean<Role> requestBean){
+    public ResponseBean<PageInfo<Role>> findPage(@RequestBody @Validated RequestBean<Role> requestBean){
         return ResponseBean.success(roleService.findPage(requestBean.getData()));
     }
 
@@ -42,5 +44,26 @@ public class RoleController {
     public ResponseBean<Integer> saveRole(@Validated @RequestBody RequestBean<Role> requestBean){
         return ResponseBean.success(roleService.insertSelective(requestBean.getData()));
     }
+
+
+    @RequestMapping(value = "/updateRole",method = RequestMethod.POST)
+    @ApiOperation(value = "修改角色")
+    @ResponseBody
+    public ResponseBean<Integer> updateRole(@Validated @RequestBody RequestBean<Role> requestBean){
+        return ResponseBean.success(roleService.updateSelective(requestBean.getData()));
+    }
+
+
+    //给角色添加权限
+    @RequestMapping(value = "/updateRolePermission",method = RequestMethod.POST)
+    @ApiOperation(value = "修改角色-添加权限")
+    @ResponseBody
+    public ResponseBean<Integer> updateRolePermission(@Validated @RequestBody RequestBean<Map<String,Object>> requestBean){
+        return ResponseBean.success(roleService.editPermission(requestBean.getData()));
+    }
+
+
+
+
 
 }

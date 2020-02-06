@@ -32,4 +32,6 @@ public interface UserService {
 
 	Integer updateUserStatus(User user);
 
+	Integer editUserRole(Map<String,Object> params);
+
 }

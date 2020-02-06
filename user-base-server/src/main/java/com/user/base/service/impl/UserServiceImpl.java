@@ -6,6 +6,8 @@ import java.util.Map;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.user.base.annotation.TestAccess;
+import com.user.base.dao.UserRoleMapper;
+import com.user.base.entity.model.UserRole;
 import com.user.common.exception.BuExceptionEnum;
 import com.user.common.exception.BusinessException;
 import com.user.common.utils.codec.MD5Util;
@@ -16,12 +18,16 @@ import com.user.base.dao.UserMapper;
 import com.user.base.entity.model.User;
 import com.user.base.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private UserRoleMapper userRoleMapper;
 
 	@TestAccess(value = "1111")
 	@Override
@@ -95,5 +101,22 @@ public class UserServiceImpl implements UserService{
 	public Integer updateUserStatus(User user){
         return userMapper.updateSetStatus(user);
     }
+
+	@Override
+	@Transactional
+	public Integer editUserRole(Map<String,Object> params){
+		if(params.get("sysUserId") != null && params.get("sysRoleId") !=null){
+			if(params.get("sysUserId") instanceof Integer && params.get("sysRoleId") instanceof Integer){
+				UserRole userRole = new UserRole();
+				userRole.setSysUserId(Integer.valueOf(params.get("sysUserId").toString()));
+				userRoleMapper.deleteByParams(userRole);
+				Integer sysRoleId = Integer.valueOf(params.get("sysRoleId").toString());
+				userRole.setSysRoleId(sysRoleId);
+				userRoleMapper.insertSelective(userRole);
+				return 1;
+			}
+		}
+		return -1;
+	}
 
 }

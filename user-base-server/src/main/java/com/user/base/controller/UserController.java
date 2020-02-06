@@ -82,7 +82,17 @@ public class UserController {
         return ResponseBean.success(CodeMsg.SUCCESS,integer);
 
     }
-    //rbac
+    //给用户分配角色
+    @RequestMapping(value = "updateUserRole",method = RequestMethod.POST)
+    @ApiOperation(value = "给用户分配角色")
+    @ResponseBody
+    public ResponseBean<Integer> updateUserRole(@RequestBody @Valid RequestBean<Map<String,Object>> requestBean){
+        Integer integer = userService.editUserRole(requestBean.getData());
+        return ResponseBean.success(CodeMsg.SUCCESS,integer);
+
+    }
+
+
 
 
 }

@@ -38,12 +38,10 @@
       and sys_permission_id=#{sysPermissionId,jdbcType=INTEGER}
     </if>
   </delete>
-  <insert id="insertSelective" parameterType="com.user.base.entity.model.RolePermission" >
+  <insert id="insertSelective" parameterType="com.user.base.entity.model.RolePermission"
+           useGeneratedKeys="true"  keyProperty="id"  keyColumn = "id">
     insert into t_sys_role_permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="sysRoleId != null" >
         sys_role_id,
       </if>
@@ -52,9 +50,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="sysRoleId != null" >
         #{sysRoleId,jdbcType=INTEGER},
       </if>
