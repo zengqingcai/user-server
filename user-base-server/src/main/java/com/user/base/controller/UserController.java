@@ -9,6 +9,7 @@ import com.user.base.service.UserService;
 import com.user.common.exception.BuExceptionEnum;
 import com.user.common.exception.BusinessException;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +34,15 @@ public class UserController {
         return ResponseBean.success(userService.findPage(user));
     }
 
-
-
-
     @RequestMapping(value = "saveUser",method = RequestMethod.POST)
     @ApiOperation(value = "添加用户")
     @ResponseBody
     public ResponseBean<Integer> saveUser(@RequestBody @Valid User user){
 
+        if(StringUtils.isBlank(user.getLocked()))
+            user.setLocked("1");
+        if(StringUtils.isBlank(user.getPassword()))
+            user.setPassword("123456");
         Integer integer = userService.saveUser(user);
         return ResponseBean.success(CodeMsg.SUCCESS,integer);
 
@@ -66,13 +68,12 @@ public class UserController {
 
     }
 
-
     @RequestMapping(value = "updateUserStatus",method = RequestMethod.POST)
     @ApiOperation(value = "修改用户状态")
     @ResponseBody
     public ResponseBean<Integer> updateUserStatus(@RequestBody Map<String,Object> map){
         User user = new User();
-        if(map.get("id") == null || map.get("status") ==null){
+        if(map.get("id") == null || Integer.valueOf(map.get("id").toString())==0 || map.get("status") ==null){
             throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
         }
         user.setId(Integer.valueOf(map.get("id").toString()));
@@ -81,5 +82,7 @@ public class UserController {
         return ResponseBean.success(CodeMsg.SUCCESS,integer);
 
     }
+    //rbac
+
 
 }

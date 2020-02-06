@@ -16,7 +16,7 @@ public class User {
     private String username;
 
     @NotNull(message = "password不能为空")
-    private String password="123456";
+    private String password;
 
     @NotNull(message = "salt 不能为空")
     private String salt;

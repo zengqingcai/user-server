@@ -2,6 +2,7 @@ package com.user.base.dao;
 
 import com.user.base.entity.model.User;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,8 @@ public interface UserMapper {
    List<User> queryUserByParams(User user);
 
    User queryUserByUserCode(String usercode);
+
+   User queryUserByUserCodeWithoutId(User params);
    
    int insertSelective(User user);
    

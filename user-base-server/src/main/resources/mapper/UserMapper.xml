@@ -31,16 +31,26 @@
     and usercode = #{usercode,jdbcType=VARCHAR}
     limit 1
   </select>
+
+
+  <select id="queryUserByUserCodeWithoutId" parameterType="com.user.base.entity.model.User" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />
+    from t_sys_user
+    where locked = '1'
+    and id !=  #{id,jdbcType=INTEGER}
+    and usercode = #{usercode,jdbcType=VARCHAR}
+    limit 1
+  </select>
   
   <select id="queryUserByParams" parameterType="com.user.base.entity.model.User" resultMap="BaseResultMap" >
     select <include refid="Base_Column_List" />
     from t_sys_user
     where 1 = 1
       <if test="usercode != null and usercode !=''" >
-        and usercode = #{usercode,jdbcType=VARCHAR}
+        and usercode LIKE CONCAT('%',#{usercode},'%')
       </if>
       <if test="username != null and username !=''" >
-        and username = #{username,jdbcType=VARCHAR}
+        and username LIKE CONCAT('%',#{username},'%')
       </if>
       <if test="password != null and password !=''" >
         and password = #{password,jdbcType=VARCHAR}

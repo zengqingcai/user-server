@@ -1,8 +1,8 @@
 package com.user.base.rabbitMq;
 
-import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.amqp.core.*;
 
 import java.util.HashMap;
 import java.util.Map;

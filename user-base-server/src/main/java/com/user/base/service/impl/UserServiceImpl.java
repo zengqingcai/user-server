@@ -9,6 +9,7 @@ import com.user.base.annotation.TestAccess;
 import com.user.common.exception.BuExceptionEnum;
 import com.user.common.exception.BusinessException;
 import com.user.common.utils.codec.MD5Util;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.user.base.dao.UserMapper;
@@ -25,12 +26,10 @@ public class UserServiceImpl implements UserService{
 	@TestAccess(value = "1111")
 	@Override
 	public PageInfo<User> findPage(User user) {
-		System.out.println();
+		//todo 暂时写死的
 		PageHelper.startPage(1, 10);
 		List<User> list = userMapper.queryUserByParams(user);
-
 		PageInfo<User> pageInfo = new PageInfo<>(list);
-
 		return pageInfo;
 	}
 
@@ -72,11 +71,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int updateBySelective(User user) {
-		if(userMapper.queryUserByUserCode(user.getUsercode())!=null){
+
+		if(user.getId()==null||user.getId()==0) {
+			throw new BusinessException(BuExceptionEnum.ID_MUST);
+		}
+		if(userMapper.queryUserByUserCodeWithoutId(user)!=null){
 			throw new BusinessException(BuExceptionEnum.ACCOUNT_AGAINT);
 		}
-		//需要修改密码
-		if(!user.getPassword().equals("123456")){
+		if(StringUtils.isNotBlank(user.getPassword())){
             user.setPassword(MD5Util.md5(user.getPassword()));
         }
 		return userMapper.updateBySelective(user);

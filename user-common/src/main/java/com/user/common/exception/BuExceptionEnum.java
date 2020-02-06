@@ -6,6 +6,8 @@ import java.util.Map;
 public enum BuExceptionEnum {
 
 
+    ID_MUST("10002", "请输入id！"),
+
     ACCOUNT_AGAINT("10001", "账号重复！"),
 
     ILLEGAL_PARAMETERS("99999","不合法的请求参数");
