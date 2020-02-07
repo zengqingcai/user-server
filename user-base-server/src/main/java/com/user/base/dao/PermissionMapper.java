@@ -16,5 +16,7 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
     Permission selectByPrimary(Integer id);
 
+    Integer countByCode(Permission recode);
+
     List<Permission> queryByParams(Permission params);
 }

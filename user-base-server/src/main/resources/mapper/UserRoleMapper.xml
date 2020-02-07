@@ -7,9 +7,29 @@
     <result column="sys_role_id" property="sysRoleId" jdbcType="INTEGER" />
   </resultMap>
 
+  <resultMap id="PermissionResultMap" type="com.user.base.entity.model.Permission">
+    <id column="id" property="id" />
+    <result column="parent_id" property="parentId" />
+    <result column="code" property="code" />
+    <result column="name" property="name" />
+    <result column="icon" property="icon" />
+    <result column="url" property="url" />
+    <result column="type" property="type" />
+    <result column="sort" property="sort" />
+    <result column="status" property="status" />
+    <result column="description" property="description" />
+    <result column="operate_time" property="operateTime" />
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, sys_user_id, sys_role_id
   </sql>
+
+  <sql id="Permission_Column_List" >
+    id, parent_id, code, name, icon, url, type, sort, status, description, operate_time
+  </sql>
+
+
   <select id="queryByParams" resultMap="BaseResultMap" parameterType="com.user.base.entity.model.UserRole" >
     select
     <include refid="Base_Column_List" />
@@ -61,4 +81,19 @@
       </if>
     </trim>
   </insert>
+
+  <!-- 加载用户已有的角色 -->
+  <select id="queryRolesByUserId" resultType="com.user.base.entity.model.Role" parameterType="java.lang.Integer">
+        SELECT id,NAME,available
+        FROM t_sys_role
+        WHERE available =1
+        AND  id  IN ( SELECT sys_role_id FROM t_sys_user_role WHERE sys_user_id =  #{sysUserId,jdbcType=INTEGER} )
+  </select>
+
+  <select id="queryPersByRoleId" resultMap="PermissionResultMap" parameterType="java.lang.Integer">
+       SELECT
+          <include refid="Permission_Column_List"/>
+        FROM t_sys_permission WHERE STATUS = 1
+       AND id IN (SELECT sys_permission_id  FROM t_sys_role_permission WHERE sys_role_id = #{sysRoleId,jdbcType=INTEGER})
+  </select>
 </mapper>

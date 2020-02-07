@@ -63,6 +63,18 @@
     </if>
   </select>
 
+  <select id="countByCode" parameterType="com.user.base.entity.model.Permission" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    from t_sys_permission
+    where STATUS =1
+    <if test="id != null" >
+      and id != #{id,jdbcType=INTEGER}
+    </if>
+    <if test="code != null and code !=''" >
+      and code = #{code,jdbcType=VARCHAR}
+    </if>
+  </select>
+
   <insert id="insertSelective" parameterType="com.user.base.entity.model.Permission" useGeneratedKeys="true" keyProperty="id">
     insert into t_sys_permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -167,4 +179,9 @@
     </set>
     WHERE id = #{id}
   </update>
+
+
+
+
+
 </mapper>

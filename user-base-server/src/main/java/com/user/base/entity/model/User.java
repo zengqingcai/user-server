@@ -21,5 +21,5 @@ public class User {
     @NotNull(message = "salt 不能为空")
     private String salt;
 
-    private String locked;
+    private Integer status;
 }

@@ -20,4 +20,7 @@ public interface PermissionService {
 
 
     Integer updateBySelective(Permission permission);
+
+
+    Integer countByCode(Permission recode);
 }

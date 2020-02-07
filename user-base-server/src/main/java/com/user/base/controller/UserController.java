@@ -39,8 +39,6 @@ public class UserController {
     @ResponseBody
     public ResponseBean<Integer> saveUser(@RequestBody @Valid User user){
 
-        if(StringUtils.isBlank(user.getLocked()))
-            user.setLocked("1");
         if(StringUtils.isBlank(user.getPassword()))
             user.setPassword("123456");
         Integer integer = userService.saveUser(user);
@@ -77,7 +75,7 @@ public class UserController {
             throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
         }
         user.setId(Integer.valueOf(map.get("id").toString()));
-        user.setLocked(map.get("status").toString());
+        user.setStatus(Integer.valueOf(map.get("status").toString()));
         Integer integer = userService.updateUserStatus(user);
         return ResponseBean.success(CodeMsg.SUCCESS,integer);
 

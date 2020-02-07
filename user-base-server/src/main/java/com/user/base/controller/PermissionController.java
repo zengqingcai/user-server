@@ -35,6 +35,13 @@ public class PermissionController {
     }
 
 
+    @RequestMapping(value = "/toSavePage",method = RequestMethod.GET)
+    @ApiOperation(value = "跳转添加权限页面")
+    public String  toSavePage(){
+        return "rbac/permission/permission_edit";
+    }
+
+
     @RequestMapping(value = "/savePermission",method = RequestMethod.POST)
     @ApiOperation(value = "添加权限")
     @ResponseBody

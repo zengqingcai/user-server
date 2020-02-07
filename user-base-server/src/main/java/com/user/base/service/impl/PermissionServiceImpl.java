@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.user.base.dao.PermissionMapper;
 import com.user.base.entity.model.Permission;
 import com.user.base.service.PermissionService;
+import com.user.common.exception.BuExceptionEnum;
+import com.user.common.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,6 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PageInfo<Permission> findPage(Permission permission) {
-
         PageHelper.startPage(permission.getCurrentPage(),permission.getPageSize());
         List<Permission> list = permissionMapper.queryByParams(permission);
         PageInfo<Permission> pageInfo = new PageInfo<>(list);
@@ -33,6 +34,11 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Integer savePermission(Permission permission) {
+        Permission permission1 = new Permission();
+        permission1.setCode(permission.getCode());
+        if(permissionMapper.countByCode(permission1)>0){
+            throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
+        }
         return permissionMapper.insertSelective(permission);
     }
 
@@ -43,6 +49,19 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Integer updateBySelective(Permission permission) {
+        if(permission.getId() == null || permission.getId() ==0)
+            throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
+        Permission permission1 = new Permission();
+        permission1.setCode(permission.getCode());
+        permission1.setId(permission.getId());
+        if(permissionMapper.countByCode(permission1)>0){
+            throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
+        }
         return permissionMapper.updateBySelective(permission);
+    }
+
+    @Override
+    public Integer countByCode(Permission recode) {
+        return permissionMapper.countByCode(recode);
     }
 }
