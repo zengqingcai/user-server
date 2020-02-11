@@ -1,0 +1,14 @@
+function goLogin() {
+    window.location.href="/login.html"
+}
+
+
+function goLogin() {
+ window.location.href="/login"
+}
+
+在body里 onload
+$(function(){
+
+
+});
