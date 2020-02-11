@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +33,16 @@ public class UserController {
     public ResponseBean<PageInfo<User>> findPage(@RequestBody RequestBean<User> requestBean){
         User user = requestBean.getData();
         return ResponseBean.success(userService.findPage(user));
+    }
+
+
+
+    @RequestMapping(value = "testPage",method = RequestMethod.GET)
+    @ApiOperation(value = "test分页列表")
+    @ResponseBody
+    public String testPage(Model model){
+        model.addAttribute("","");
+        return "rbac/role_list";
     }
 
     @RequestMapping(value = "saveUser",method = RequestMethod.POST)
