@@ -49,13 +49,16 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Integer updateBySelective(Permission permission) {
-        if(permission.getId() == null || permission.getId() ==0)
+        if(permission.getId() == null || permission.getId() ==0) {
             throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
-        Permission permission1 = new Permission();
-        permission1.setCode(permission.getCode());
-        permission1.setId(permission.getId());
-        if(permissionMapper.countByCode(permission1)>0){
-            throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
+        }
+        if(permission.getCode() != null) {
+            Permission permission1 = new Permission();
+            permission1.setCode(permission.getCode());
+            permission1.setId(permission.getId());
+            if (permissionMapper.countByCode(permission1) > 0) {
+                throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
+            }
         }
         return permissionMapper.updateBySelective(permission);
     }

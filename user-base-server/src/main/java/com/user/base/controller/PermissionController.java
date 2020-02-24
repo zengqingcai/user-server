@@ -52,22 +52,32 @@ public class PermissionController {
         if(model.equalsIgnoreCase("0")){
             return "rbac/permission/permission_edit";
         }
-
         return "rbac/permission/permission_edit";
     }
 
     @RequestMapping(value = "doSavePermission",method = RequestMethod.POST)
     @ResponseBody
-    public Object doSavePermission(@RequestBody Permission permission,HttpServletRequest request)throws Exception{
+    public Object doSavePermission(@RequestBody Permission permission,HttpServletRequest request) throws Exception{
         if(permission == null)
             return null;
         //添加
-        if(request.getParameter("model").equalsIgnoreCase("0")){
-            CodeMsg codeMsg = new CodeMsg("200","");
-            return codeMsg;
-        }
-        return null;
+        permissionService.savePermission(permission);
+        CodeMsg codeMsg = new CodeMsg("200","添加成功");
+        return codeMsg;
+
     }
+
+    @RequestMapping(value = "doUploadPermission",method = RequestMethod.POST)
+    @ResponseBody
+    public Object doUploadPermission(@RequestBody Permission permission) throws Exception{
+        if(permission == null)
+            return null;
+        permissionService.updateBySelective(permission);
+        CodeMsg codeMsg = new CodeMsg("200","修改成功");
+        return codeMsg;
+    }
+
+
 
 
 
