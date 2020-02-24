@@ -8,6 +8,7 @@ function goLogin() {
 }
 
 在body里 onload
+或者
 $(function(){
 
 

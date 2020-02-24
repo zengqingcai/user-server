@@ -1,0 +1,59 @@
+$(function () {
+    $('#menu').sidebarMenu({
+        data: [{
+            id: '1',
+            text: '普通用户管理',
+            icon: 'fa fa-user-circle-o fa-fw',
+            url: '',
+            menus: [{
+                id: '11',
+                text: '用户列表',
+                icon: 'fa fa-group fa-fw',
+                url: '/emp/empList'
+            }, {
+                id: '12',
+                text: '用户注册',
+                icon: 'fa fa-user-o fa-fw',
+                url: '/emp/empAdd'
+            }]
+        },{
+            id: '2',
+            text: '平台用户管理',
+            icon: 'fa fa-user-circle-o fa-fw',
+            url: '',
+            menus: [{
+                id: '21',
+                text: '用户列表',
+                icon: 'fa fa-group fa-fw',
+                url: '/emp/empList'
+            }, {
+                id: '22',
+                text: '用户注册',
+                icon: 'fa fa-user-o fa-fw',
+                url: '/emp/empAdd'
+            }]
+        },{
+            id: '1',
+            text: '系统设置',
+            icon: 'fa fa-cog fa-fw',
+            url: '',
+            menus: [{
+                id: '11',
+                text: '系统参数',
+                icon: 'fa fa-pencil fa-fw',
+                url: '/sysparv5/list'
+            }]
+        }, {
+            id: '3',
+            text: '系统日志',
+            icon: 'fa fa-book fa-fw',
+            url: '',
+            menus: [{
+                id: '31',
+                text: '日志列表',
+                icon: 'fa fa-bug fa-fw',
+                url: '/syslog/logList'
+            }]
+        }]
+    });
+});
