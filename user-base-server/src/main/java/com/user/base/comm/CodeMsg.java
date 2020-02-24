@@ -9,7 +9,7 @@ public class CodeMsg {
 	public static CodeMsg SUCCESS = new CodeMsg("0000", "成功");
 	
 	
-	private CodeMsg( ) {
+	private CodeMsg() {
 	}
 			
 	public CodeMsg(String code, String message ) {

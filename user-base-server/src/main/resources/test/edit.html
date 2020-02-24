@@ -23,49 +23,28 @@
         <script type="text/javascript" src="/js/dataTables/dataTables.bootstrap.js"></script>
         <script type="text/javascript" src="/js/sweetalert/sweetalert2.min.js"></script>
         <script type="text/javascript">
-            function doSavePermission(model) {
+            function goLogin() {
+                window.location.href="/login.html"
+            }
+
+            function register() {
                 $.ajax({
-                    url:"/permission/doSavePermission?model="+model,
+                    url:"/emp/doSaveEmp",
                     type:"post",
                     dataType:"json",
                     contentType :"application/json",
                     data: JSON.stringify($('#myform').serializeObject()),
                     success:function(data){
-                        if(data.code==200){
-                            alert(data.message);
-                            window.location.href = "/permission/permissionList";
+                        if(data.success==true){
+                            alert("保存成功");
+                            window.location.href = "/emp/empList";
                         }else{
-                            alert(data.message);
+                            alert("保存失败,原因:["+data.description+"]");
                         }
                     },
                     error:function () {
-                        alert("系统错误！")
                     }
                 });
-            }
-
-            function doSaveSubPermission() {
-
-            }
-            
-            function doUploadPermission() {
-                
-            }
-
-            function doEdit() {
-                if($("#id").val().trim() == '' && $("#parentId").val().trim() == ''){
-                    doSavePermission(0);
-                    return;
-                }
-
-                if($("#id").val().trim() == ''){
-                    alert("id 为空值");
-                    return;
-                }
-                if($("#parentId").val().trim() == ''){
-                    alert("parentId 为空值");
-                    return;
-                }
             }
 
             //序列化对象
@@ -92,8 +71,8 @@
             <div class="panel panel-default" style="width: 50%; margin: 10px auto;">
                 <div class="panel-heading" style="font-weight: 600;">
                     权限编辑
-                    <input th:value="${permission.id}" id="id" type="text">
-                    <input th:value="${permission.parentId}" id="parentId" type="text">
+                    <input th:value="${permission.id}" id="pid" type="hidden" placeholder="id">
+                    <input th:value="${permission.parentId}" id="ppid" type="hidden" placeholder="parent_id">
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -120,10 +99,11 @@
                             <input class="form-control"  name="url" type="text">
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">状态</label>
                         <div class="col-sm-10">
-                            <select name="type" class="select-control">
+                            <select name="status" class="select-control">
                                 <option value="0">----菜单----</option>
                                 <option value="1">----按钮----</option>
                                 <option value="2">----链接----</option>
@@ -137,25 +117,70 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">备注</label>
+                        <label class="col-sm-2 control-label">排序</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="description" style="width:300px;height:150px;"></textarea>
+                            <input class="form-control"  name="sort" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">状态</label>
                         <div class="col-sm-10">
                             <select name="status" class="select-control">
-                                <option value="1">----启用----</option>
-                                <option value="0">----禁用----</option>
+                                <option value="0">----菜单----</option>
+                                <option value="1">----按钮----</option>
+                                <option value="2">----链接----</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">用户类型</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <label><input type="radio" value="1" name="emptype"/>&nbsp;景区用户&nbsp;</label>
+                                <label><input type="radio" value="2" name="emptype"/>&nbsp;供应商&nbsp;</label>
+                                <label><input type="radio" value="3" name="emptype"/>&nbsp;分销商&nbsp;</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">企业名称</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="companyname" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">企业地址</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="addr" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">手机号码</label>
+                        <div class="col-sm-10">
+
+                            <input class="form-control" name="mobile" type="tel">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" name="email" type="email">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="sznote" style="width:300px;height:150px;"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class=" col-sm-12" style="text-align: center; margin-top: 20px;">
-                            <input value="添加" type="button" class="btn btn-success" th:onclick="|doEdit()|"/>
+                            <input value="添加" type="button" class="btn btn-success" th:onclick="|register()|"/>
                             <input value="重置" type="reset" class="btn btn-default" />
-                            <input value="取消" type="button" class="btn btn-default" onclick="history.go(-1)"/>
+                            <input value="取消" type="button" class="btn btn-default" onclick=""/>
                         </div>
                     </div>
                 </div>
