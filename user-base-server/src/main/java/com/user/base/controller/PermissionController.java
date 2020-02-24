@@ -1,6 +1,7 @@
 package com.user.base.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.user.base.comm.CommonPage;
 import com.user.base.comm.RequestBean;
 import com.user.base.comm.ResponseBean;
 import com.user.base.entity.model.Permission;
@@ -8,10 +9,16 @@ import com.user.base.service.PermissionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @Authod:zeng
@@ -24,6 +31,30 @@ public class PermissionController {
 
     @Autowired
     private PermissionService permissionService;
+
+
+    @RequestMapping(value = "/permissionList")
+    public String permissionList(Permission permission, ModelMap model){
+        if(permission.getCurrentPage()<= 0)
+            permission.setCurrentPage(1);
+        PageInfo<Permission> pageInfo = permissionService.findPage(permission);
+        List<Permission> list = pageInfo.getList();
+        CommonPage page = CommonPage.setPageModel(pageInfo);
+        model.put("Permissionlist",list);
+        model.put("page",page);
+        return "rbac/permission/permission_list";
+    }
+
+    @RequestMapping(value = "/permissionAdd")
+    public String toAddPage(HttpServletRequest request){
+        String model = request.getParameter("model");
+        if(model.equalsIgnoreCase("0")){
+            return "rbac/permission/permission_edit";
+        }
+        return "";
+    }
+
+
 
 
     @RequestMapping(value = "/findPage",method = RequestMethod.POST)

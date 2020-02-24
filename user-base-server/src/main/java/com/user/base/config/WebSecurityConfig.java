@@ -30,6 +30,7 @@ public class WebSecurityConfig  extends  WebSecurityConfigurerAdapter   {
 
 
 		//http.addFilterBefore(myDisableUrlSessionFilter(),UsernamePasswordAuthenticationFilter.class);
+		http.headers().frameOptions().disable();
 	}
 
 

@@ -33,12 +33,33 @@ $(function () {
                 url: '/emp/empAdd'
             }]
         },{
-            id: '1',
+            id: '3',
             text: '系统设置',
             icon: 'fa fa-cog fa-fw',
             url: '',
             menus: [{
-                id: '11',
+                id: '31',
+                text: '角色管理',
+                icon: 'fa fa-cog fa-fw',
+                url: '',
+                menus:[{
+                    id: '311',
+                    text: '角色列表',
+                    icon: 'fa fa-pencil fa-fw',
+                    url: '/sysparv5/list'
+                },{
+                    id: '312',
+                    text: '角色权限列表',
+                    icon: 'fa fa-pencil fa-fw',
+                    url: '/sysparv5/list'
+                }]
+            },{
+                    id: '32',
+                    text: '权限管理',
+                    icon: 'fa fa-pencil fa-fw',
+                    url: '/permission/permissionList'
+            },{
+                id: '31',
                 text: '系统参数',
                 icon: 'fa fa-pencil fa-fw',
                 url: '/sysparv5/list'
