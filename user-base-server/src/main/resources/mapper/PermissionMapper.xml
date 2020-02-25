@@ -30,7 +30,7 @@
   <select id="queryByParams" parameterType="com.user.base.entity.model.Permission" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from t_sys_permission
-    where 1=1
+    where 1=1 and status = 1
     <if test="parentId != null" >
       and parent_id = #{parentId,jdbcType=INTEGER}
     </if>
@@ -61,6 +61,7 @@
     <if test="operateTime != null" >
       and operate_time = #{operateTime,jdbcType=TIMESTAMP}
     </if>
+     ORDER BY sort
   </select>
 
   <select id="countByCode" parameterType="com.user.base.entity.model.Permission" resultType="java.lang.Integer">
@@ -73,6 +74,14 @@
     <if test="code != null and code !=''" >
       and code = #{code,jdbcType=VARCHAR}
     </if>
+  </select>
+
+  <select id="querySort" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT sort FROM t_sys_permission
+    WHERE 1=1
+    AND parent_id = #{parentId,jdbcType=INTEGER}
+    ORDER BY sort DESC
+    LIMIT 1
   </select>
 
   <insert id="insertSelective" parameterType="com.user.base.entity.model.Permission" useGeneratedKeys="true" keyProperty="id">

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * List分组
+ * todo 标签：List<T> 根据属性分组
  */
 @Data
 public class PersonData {

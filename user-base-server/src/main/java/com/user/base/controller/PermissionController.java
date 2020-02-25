@@ -5,6 +5,7 @@ import com.user.base.comm.CodeMsg;
 import com.user.base.comm.CommonPage;
 import com.user.base.comm.RequestBean;
 import com.user.base.comm.ResponseBean;
+import com.user.base.entity.dto.permission.PermissionListDTO;
 import com.user.base.entity.model.Permission;
 import com.user.base.service.PermissionService;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,11 +38,14 @@ public class PermissionController {
     public String permissionList(Permission permission, ModelMap modelMap){
         if(permission.getCurrentPage()<= 0)
             permission.setCurrentPage(1);
+
+        permission.setParentId(permission.getParentId()==null?0:permission.getParentId());
         PageInfo<Permission> pageInfo = permissionService.findPage(permission);
         List<Permission> list = pageInfo.getList();
         CommonPage page = CommonPage.setPageModel(pageInfo);
         modelMap.put("Permissionlist",list);
         modelMap.put("page",page);
+
         return "rbac/permission/permission_list";
     }
 
@@ -48,16 +53,32 @@ public class PermissionController {
     public String toAddPage(HttpServletRequest request, ModelMap modelMap){
         Permission permission = new Permission();
         modelMap.put("permission",permission);
-        String model = request.getParameter("model");
-        if(model.equalsIgnoreCase("0")){
-            return "rbac/permission/permission_edit";
+        String parentIdStr = request.getParameter("parentId");
+        if(parentIdStr != null && !parentIdStr.equalsIgnoreCase("")){
+            Integer parentId = Integer.parseInt(parentIdStr);
+            permission.setParentId(parentId);
         }
         return "rbac/permission/permission_edit";
     }
 
+    @RequestMapping(value = "doCheckCode",method = RequestMethod.POST)
+    @ResponseBody
+    public Object doCheckCode(HttpServletRequest request){
+        Permission permission = new Permission();
+        String code = request.getParameter("code");
+        permission.setCode(code);
+        if(!request.getParameter("id").equalsIgnoreCase("")) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            permission.setId(id);
+        }
+        Integer model = Integer.parseInt(request.getParameter("model"));
+        return permissionService.doCheckCode(permission,model);
+
+    }
+
     @RequestMapping(value = "doSavePermission",method = RequestMethod.POST)
     @ResponseBody
-    public Object doSavePermission(@RequestBody Permission permission,HttpServletRequest request) throws Exception{
+    public Object doSavePermission(@RequestBody Permission permission){
         if(permission == null)
             return null;
         //添加
@@ -66,6 +87,19 @@ public class PermissionController {
         return codeMsg;
 
     }
+
+    @RequestMapping(value = "/doLoadPermission")
+    public String doLoadPermission(HttpServletRequest request, ModelMap modelMap){
+        if(!request.getParameter("id").equalsIgnoreCase("")) {
+            Permission permission =
+                    permissionService.loadPermission(Integer.parseInt(request.getParameter("id")));
+            modelMap.put("permission", permission);
+            return "rbac/permission/permission_edit";
+        }
+        return null;
+    }
+
+
 
     @RequestMapping(value = "doUploadPermission",method = RequestMethod.POST)
     @ResponseBody
@@ -88,6 +122,16 @@ public class PermissionController {
     public ResponseBean<PageInfo<Permission>> findPage(@RequestBody RequestBean<Permission> requestBean){
         Permission permission = requestBean.getData();
         return ResponseBean.success(permissionService.findPage(permission));
+    }
+
+    @RequestMapping(value = "/findPage11",method = RequestMethod.POST)
+    @ApiOperation(value = "findPage11")
+    @ResponseBody
+    public ResponseBean<List<PermissionListDTO>> findPage11(@RequestBody RequestBean<Permission> requestBean){
+        //Permission permission = requestBean.getData();
+        List<PermissionListDTO> listDTOList = new ArrayList<>();
+        permissionService.setPermissionList(listDTOList,0);
+        return ResponseBean.success(listDTOList);
     }
 
 

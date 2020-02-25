@@ -28,12 +28,22 @@
             window.location.href = "/emp/editEmpRsource/"+empid;
         }
 
-        function test() {
-            alert("test");
+        function subPer(id) {
+            $("form input[name='parentId']").val(id)
+            $("#form1").submit();
+
+        }
+
+        function subPerAdd(id) {
+            window.location.href = "/permission/permission2Add?parentId="+id;
         }
 
         function toAddPage() {
-            window.location.href = "/permission/permission2Add?model=0";
+            window.location.href = "/permission/permission2Add";
+        }
+
+        function load(id) {
+            window.location.href = "/permission/doLoadPermission?id="+id;
         }
     </script>
 </head>
@@ -47,13 +57,28 @@
             <button type="submit" class="btn btn-primary" th:onclick="toAddPage()"> 添 加</button>
         </div>
         <div class="panel-body">
-            <form class="form-inline" action="#" method="post">
+
+
+            <form id="form1" class="form-inline" th:action="@{/permission/permissionList}" method="post" th:object="${permission}">
+                <div class="form-group">
+                    <label>名称</label>
+                    <input name="name"  type="text">
+                    <input name="parentId" type="text" hidden="hidden">
+                </div>
+                <div class="form-group">
+                    <label for="type">类型</label>
+                    <select class="form-control" id="type" th:field="*{type}">
+                        <option value="">---请选择---</option>
+                        <option value="0">----菜单----</option>
+                        <option value="1">----按钮----</option>
+                        <option value="2">----链接----</option>
+                    </select>
+                </div>
+
                 <input th:value="${page.currentPage}" id="page_currentPage" type="hidden">
                 <input th:value="${page.pageSize}" id="page_pageSize" type="hidden">
                 <input th:value="${page.totals}" id="page_totals" type="hidden">
                 <input th:value="${page.pages}" id="page_pages" type="hidden">
-                <br>
-                父节点 :<input type="text" value="${parentId}" readonly>
                 <button type="submit" class="btn btn-primary"> 查 询</button>
 
             </form>
@@ -72,8 +97,8 @@
             </thead>
             <tbody>
             <tr th:each="permission:${Permissionlist}">
-                <td>
-                    <p th:text="${permission.id}" hidden="hidden"></p>
+                <td hidden="hidden">
+                    <p th:text="${permission.id}"></p>
                 </td>
                 <td>
                     <p th:text="${permission.code}"></p>
@@ -86,8 +111,9 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success" th:onclick="|test()|">查看</button>
-                        <button type="button" class="btn btn-success" th:onclick="|subPer()|">子项</button>
+                        <button type="button" class="btn btn-success" th:onclick="|load(${permission.id})|">编辑</button>
+                        <button type="button" class="btn btn-success" th:onclick="|subPer(${permission.id})|">子项</button>
+                        <button type="button" class="btn btn-success" th:onclick="|subPerAdd(${permission.id})|">添加子项</button>
                     </div>
                 </td>
             </tr>

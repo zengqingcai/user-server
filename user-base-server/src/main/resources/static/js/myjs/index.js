@@ -46,12 +46,12 @@ $(function () {
                     id: '311',
                     text: '角色列表',
                     icon: 'fa fa-pencil fa-fw',
-                    url: '/sysparv5/list'
+                    url: '/role/roleList'
                 },{
                     id: '312',
                     text: '角色权限列表',
                     icon: 'fa fa-pencil fa-fw',
-                    url: '/sysparv5/list'
+                    url: '/role/roleList'
                 }]
             },{
                     id: '32',

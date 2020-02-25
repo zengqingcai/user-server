@@ -3,10 +3,15 @@ package com.user.base.test;
 import lombok.Data;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
+ * todo 标签：List根据对象属性排序 List根据对象属性去重
  * List<T>集合根据某个属性排序
+ * 根据某个重复的属性去重
  */
 @Data
 public class Student implements Comparable<Student>{
@@ -67,6 +72,27 @@ public class Student implements Comparable<Student>{
         Collections.sort(list2,Collections.reverseOrder());
 
         System.out.println(list2);
+
+        //另类排序
+        /**
+         *
+         * List<Edmtickettypetab> list = productAll;
+             Collections.sort(list,new Comparator<Edmtickettypetab>() {
+             public int compare(Edmtickettypetab o1, Edmtickettypetab o2) {
+             return o1.getStrbycategorytype().compareTo(o2.getStrbycategorytype());
+             }
+           });
+         */
+
+        List<Student> quiList =
+                list.stream().filter(distinctByKey(Student::getName)).collect(Collectors.toList());
+
+        System.out.println("list");
+    }
+
+    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
 

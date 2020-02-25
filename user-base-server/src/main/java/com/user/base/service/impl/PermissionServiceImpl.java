@@ -2,14 +2,18 @@ package com.user.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.user.base.comm.CodeMsg;
 import com.user.base.dao.PermissionMapper;
+import com.user.base.entity.dto.permission.PermissionListDTO;
 import com.user.base.entity.model.Permission;
 import com.user.base.service.PermissionService;
 import com.user.common.exception.BuExceptionEnum;
 import com.user.common.exception.BusinessException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,12 +37,33 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    public CodeMsg doCheckCode(Permission permission,Integer model) {
+        CodeMsg codeMsg = new CodeMsg("200","没有重复");
+        Permission permission1 = new Permission();
+        permission1.setCode(permission.getCode());
+        if(model == 1){
+            permission1.setId(permission.getId());
+        }
+        if(permissionMapper.countByCode(permission1)>0){
+            codeMsg = new CodeMsg("201","出现重复的编号");
+        }
+        return codeMsg;
+    }
+
+    @Override
     public Integer savePermission(Permission permission) {
         Permission permission1 = new Permission();
         permission1.setCode(permission.getCode());
         if(permissionMapper.countByCode(permission1)>0){
             throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
         }
+        //排序的设置
+        if(permission.getParentId()==null)
+            permission.setParentId(0);
+        Integer maxSort =  permissionMapper.querySort(permission.getParentId());
+        if(maxSort == null)
+            maxSort = 0;
+        permission.setSort(maxSort+1);
         return permissionMapper.insertSelective(permission);
     }
 
@@ -66,5 +91,24 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Integer countByCode(Permission recode) {
         return permissionMapper.countByCode(recode);
+    }
+
+    @Override
+    public void setPermissionList(List<PermissionListDTO> list,Integer parentId){
+        Permission permission = new Permission();
+        permission.setParentId(parentId);
+        List<Permission> list1 = permissionMapper.queryByParams(permission);
+        if(list1!=null && list1.size()>0) {
+            for (Permission permission1 : list1) {
+                PermissionListDTO permissionListDTO = new PermissionListDTO();
+                BeanUtils.copyProperties(permission1, permissionListDTO);
+                list.add(permissionListDTO);
+                List<PermissionListDTO> list2 = new ArrayList<>();
+                setPermissionList(list2, permission1.getId());
+                if(list2.size()>0)
+                    permissionListDTO.setItems(list2);
+            }
+        }
+
     }
 }

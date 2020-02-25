@@ -19,4 +19,6 @@ public interface PermissionMapper extends BaseMapper<Permission> {
     Integer countByCode(Permission recode);
 
     List<Permission> queryByParams(Permission params);
+
+    Integer querySort(Integer parentId);
 }

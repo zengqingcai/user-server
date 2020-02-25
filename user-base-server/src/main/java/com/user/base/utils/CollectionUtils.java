@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * todo 标签： List<String>去重
  * 集合工具类
  */
 public class CollectionUtils {
