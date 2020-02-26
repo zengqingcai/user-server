@@ -49,9 +49,11 @@ public class RoleController {
 
     @RequestMapping(value = "/toAddPage")
     public String toAddPage(ModelMap modelMap, HttpServletRequest request){
-
-        Role role = new Role();
-        modelMap.put("role",role);
+        if(request.getParameter("id")!=null && !request.getParameter("id").equals("")){
+            modelMap.put("role",roleService.queryByPrimaryKey(Integer.valueOf(request.getParameter("id"))));
+        }else {
+            modelMap.put("role",new Role());
+        }
         return "rbac/role/role_edit";
     }
 
@@ -61,9 +63,17 @@ public class RoleController {
         if(role == null)
             return null;
         //添加
-        roleService.insertSelective(role);
-        CodeMsg codeMsg = new CodeMsg("200","添加成功");
-        return codeMsg;
+        return roleService.saveRole(role);
+
+    }
+
+    @RequestMapping(value = "doUploadRole",method = RequestMethod.POST)
+    @ResponseBody
+    public Object doUploadRole(@RequestBody Role role){
+        if(role == null)
+            return null;
+        //添加
+        return roleService.saveRole(role);
 
     }
 

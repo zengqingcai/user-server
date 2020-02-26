@@ -2,6 +2,7 @@ package com.user.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.user.base.comm.CodeMsg;
 import com.user.base.dao.RoleMapper;
 import com.user.base.dao.RolePermissionMapper;
 import com.user.base.entity.model.Role;
@@ -46,9 +47,22 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Integer insertSelective(Role role) {
-        Integer i =  roleMapper.insertSelective(role);
-        System.out.println("id-value:"+role.getId());
-        return i;
+        return   roleMapper.insertSelective(role);
+    }
+
+    @Override
+    public CodeMsg saveRole(Role role) {
+        CodeMsg codeMsg = null;
+        List<Role> list = roleMapper.queryByParams(role);
+        if(list.size()>0){
+            codeMsg = new CodeMsg("201","名称重复！");
+            return codeMsg;
+        }
+        if(roleMapper.insertSelective(role)==1){
+            codeMsg = new CodeMsg("200","添加成功！");
+            return codeMsg;
+        }
+        return null;
     }
 
     @Override
