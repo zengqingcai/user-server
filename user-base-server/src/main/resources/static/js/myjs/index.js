@@ -62,7 +62,7 @@ $(function () {
                 id: '31',
                 text: '系统参数',
                 icon: 'fa fa-pencil fa-fw',
-                url: '/sysparv5/list'
+                url: '/params/paramsList'
             }]
         }, {
             id: '3',

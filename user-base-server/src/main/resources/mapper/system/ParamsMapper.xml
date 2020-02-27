@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.base.dao.ParamsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.user.base.entity.model.Params">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="params_key" property="paramsKey" />
+        <result column="params_value" property="paramsValue" />
+        <result column="params_desc" property="paramsDesc" />
+        <result column="leaf" property="leaf" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,pid,params_key, params_value, params_desc,leaf,status
+    </sql>
+
+    <select id="queryByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_sys_params
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryByParams" resultMap="BaseResultMap" parameterType="com.user.base.entity.model.Params" >
+        select
+        <include refid="Base_Column_List" />
+        from t_sys_params
+        <where>
+            <!-- 排除id本事 -->
+            <if test="id != null" >
+                and id != #{id,jdbcType=INTEGER}
+            </if>
+            <if test="pid != null" >
+                and pid = #{pid,jdbcType=INTEGER}
+            </if>
+            <if test="paramsKey != null and paramsKey != ''" >
+                and params_key LIKE CONCAT('%',#{paramsKey},'%')
+            </if>
+            <if test="paramsValue != null and paramsValue != ''" >
+                and params_value = #{paramsValue,jdbcType=VARCHAR}
+            </if>
+            <if test="paramsDesc != null and paramsDesc != ''" >
+                and params_desc = #{paramsDesc,jdbcType=VARCHAR}
+            </if>
+            <if test="leaf != null" >
+                and leaf = #{leaf,jdbcType=INTEGER}
+            </if>
+            <if test="status != null" >
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryValueByKey" resultType="java.lang.String" parameterType="java.lang.String" >
+        select params_value from t_sys_params where status = 1 and params_key = #{paramsKey,jdbcType=VARCHAR}  limit 1
+
+    </select>
+
+    <insert id="insertSelective" parameterType="com.user.base.entity.model.Params" useGeneratedKeys="true" keyProperty="id">
+        insert into t_sys_params
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+
+            <if test="pid != null" >
+                 pid,
+            </if>
+            <if test="paramsKey != null and paramsKey != ''" >
+                params_key,
+            </if>
+            <if test="paramsValue != null and paramsValue != ''" >
+                params_value,
+            </if>
+            <if test="paramsDesc != null and paramsDesc != ''" >
+                params_desc,
+            </if>
+            <if test="leaf != null" >
+                leaf,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="pid != null" >
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="paramsKey != null and paramsKey != ''" >
+                #{paramsKey,jdbcType=VARCHAR},
+            </if>
+            <if test="paramsValue != null and paramsValue != ''" >
+                #{paramsValue,jdbcType=VARCHAR},
+            </if>
+            <if test="paramsDesc != null and paramsDesc != ''" >
+                #{paramsDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="leaf != null" >
+                #{leaf,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateBySelective" parameterType="com.user.base.entity.model.Params">
+        update t_sys_params
+        <set>
+            <if test="pid != null" >
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="paramsKey != null and paramsKey != ''" >
+                params_key = #{paramsKey,jdbcType=VARCHAR},
+            </if>
+            <if test="paramsValue != null and paramsValue != ''" >
+                params_value = #{paramsValue,jdbcType=VARCHAR},
+            </if>
+            <if test="paramsDesc != null and paramsDesc != ''" >
+                params_desc = #{paramsDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="leaf != null" >
+                leaf = #{leaf,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+
+</mapper>
