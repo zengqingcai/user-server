@@ -3,8 +3,8 @@ server:
 spring:
   security:
     user:
-      name: 11  
-      password: 11
+      name: 111
+      password: 111
   profiles:
     active: dev
   application:
@@ -14,7 +14,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.187.129:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&useTimezone=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&useTimezone=true&serverTimezone=GMT%2B8
     username: root
     password: 123456
     tomcat:
@@ -60,6 +60,26 @@ hystrix:
       execution: 
         isolation: 
           strategy: SEMAPHORE
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 30
+    service-url: http://11:11@127.0.0.1:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 30
+    hostname: localhost
+    prefer-ip-address: true
+
+
+#eureka.client.registerWithEureka=true
+#eureka.client.fetchRegistry=true
+#eureka.client.registryFetchIntervalSeconds=30
+#eureka.client.serviceUrl.defaultZone=${eureka_serviceUrl:http://eureka:eureka123@10.10.10.210:8761/eureka/,http://eureka:eureka123@10.10.10.211:8761/eureka/,http://eureka:eureka123@10.10.10.212:8761/eureka/}
+#eureka.instance.leaseRenewalIntervalInSeconds=30
+#eureka.instance.hostname=${HOSTNAME:localhost}
+#eureka.instance.prefer-ip-address=true
+
 
 
 

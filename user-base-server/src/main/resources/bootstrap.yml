@@ -65,5 +65,16 @@ eureka:
       lilizhou: BBC  # 不会影响客户端行为
     lease-expiration-duration-in-seconds: 90
     lease-renewal-interval-in-seconds: 30
+
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    registry-fetch-interval-seconds: 30
+#    service-url: http://11:11@127.0.0.1:8761/eureka/
+#  instance:
+#    lease-renewal-interval-in-seconds: 30
+#    hostname: localhost
+#    prefer-ip-address: true
     
 

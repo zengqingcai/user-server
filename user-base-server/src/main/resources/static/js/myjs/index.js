@@ -9,7 +9,7 @@ $(function () {
                 id: '11',
                 text: '用户列表',
                 icon: 'fa fa-group fa-fw',
-                url: '/emp/empList'
+                url: '/app/user/userList'
             }, {
                 id: '12',
                 text: '用户注册',
@@ -25,7 +25,7 @@ $(function () {
                 id: '21',
                 text: '用户列表',
                 icon: 'fa fa-group fa-fw',
-                url: '/emp/empList'
+                url: '/sys/user/userList'
             }, {
                 id: '22',
                 text: '用户注册',

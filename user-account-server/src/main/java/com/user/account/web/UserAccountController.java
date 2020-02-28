@@ -1,5 +1,8 @@
 package com.user.account.web;
 
+import com.user.account.remote.AreaFeignService;
+import com.user.account.remote.CodeMsg;
+import com.user.account.remote.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,4 +42,15 @@ public class UserAccountController {
     	logger.info("-=============被远程用户微服务调用测试日志====================");
     	return responseBean;
     }
+
+
+    @Autowired
+    private AreaFeignService areaFeignService;
+
+	@ApiOperation(value = "测试用户账户doUploadPermission14")
+	@RequestMapping(value = "/dotest", method = RequestMethod.POST)
+	@ResponseBody
+	public CodeMsg doUploadPermission14(@RequestBody Permission permission){
+		return areaFeignService.doUploadPermission14(permission);
+	}
 }

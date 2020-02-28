@@ -111,6 +111,16 @@ public class PermissionController {
         return codeMsg;
     }
 
+    @RequestMapping(value = "doTest14",method = RequestMethod.POST)
+    @ResponseBody
+    public CodeMsg doUploadPermission14(@RequestBody Permission permission){
+        if(permission == null)
+            return null;
+        System.out.println("========doTest14,name:"+permission.getName());
+        CodeMsg codeMsg = new CodeMsg("200014","修改成功");
+        return codeMsg;
+    }
+
 
 
 

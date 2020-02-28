@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
     
-   User queryByPrimary(String id);
+   User queryByPrimary(Integer id);
     
    List<User> queryUserByParams(User user);
 

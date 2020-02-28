@@ -37,6 +37,11 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
+				<artifactId>user-common</artifactId>
+				<groupId>cn.zeng</groupId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger2</artifactId>
 				<version>${swagger.version}</version>
@@ -73,7 +78,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-amqp</artifactId>
-				<version>2.1.8.RELEASE</version>
+				<version>2.1.9.RELEASE</version>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 			<dependency>

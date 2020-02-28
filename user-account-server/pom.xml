@@ -8,6 +8,7 @@
   <artifactId>user-account-server</artifactId>
   
   <dependencies>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
@@ -96,15 +97,19 @@
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-openfeign-core</artifactId>
 		</dependency>
+      <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-openfeign</artifactId>
+      </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
         <!--添加用户名密码  -->		
-        <dependency>			
-        	<groupId>org.springframework.boot</groupId>			
-        	<artifactId>spring-boot-starter-security</artifactId>		
-        </dependency> 
+        <!--<dependency>			-->
+        	<!--<groupId>org.springframework.boot</groupId>			-->
+        	<!--<artifactId>spring-boot-starter-security</artifactId>		-->
+        <!--</dependency> -->
         <!--Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

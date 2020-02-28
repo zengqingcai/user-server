@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -30,7 +32,17 @@ public class WebSecurityConfig  extends  WebSecurityConfigurerAdapter   {
 
 
 		//http.addFilterBefore(myDisableUrlSessionFilter(),UsernamePasswordAuthenticationFilter.class);
+		//https://www.cnblogs.com/happy4java/p/11206800.html
 		http.headers().frameOptions().disable();
+
+		http.antMatcher("/api/**")
+				.authorizeRequests()
+				.antMatchers("/api/notneedlogin/**").permitAll().anyRequest().authenticated();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 

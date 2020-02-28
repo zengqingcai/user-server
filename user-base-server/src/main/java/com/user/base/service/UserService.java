@@ -13,7 +13,7 @@ public interface UserService {
 
 	Integer saveUser(User user);
 
-	User queryByPrimary(String id);
+	User queryByPrimary(Integer id);
 
 	List<User> queryUserByParams(User user);
 

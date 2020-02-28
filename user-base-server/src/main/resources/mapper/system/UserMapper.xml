@@ -17,7 +17,7 @@
   </sql>
   
   
-  <select id="queryByPrimary" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="queryByPrimary" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
     from t_sys_user

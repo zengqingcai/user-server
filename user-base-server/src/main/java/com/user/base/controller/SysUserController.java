@@ -2,6 +2,7 @@ package com.user.base.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.user.base.comm.CodeMsg;
+import com.user.base.comm.CommonPage;
 import com.user.base.comm.RequestBean;
 import com.user.base.comm.ResponseBean;
 import com.user.base.entity.model.User;
@@ -13,18 +14,71 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 
+/**
+ * 系统平台用户管理
+ */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/sys/user")
+public class SysUserController {
 
     @Autowired
     private UserService userService;
+
+
+    @RequestMapping(value = "/userList")
+    public String userList(User user, ModelMap modelMap) {
+        PageInfo<User> pageInfo = userService.findPage(user);
+        List<User> list = pageInfo.getList();
+        CommonPage page = CommonPage.setPageModel(pageInfo);
+        //modelMap.put("selectModel",params);
+        modelMap.put("userList",list);
+        modelMap.put("page",page);
+
+        return "rbac/user/user_list";
+    }
+
+    @RequestMapping(value = "/toAddPage")
+    public String toAddPage(HttpServletRequest request, ModelMap modelMap){
+        if(request.getParameter("id")!=null && !request.getParameter("id").equals("")) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            modelMap.put("user",userService.queryByPrimary(id));
+        }else {
+            modelMap.put("user",new User());
+        }
+        return "rbac/user/user_edit";
+    }
+
+
+    @RequestMapping(value = "/doSaveUser")
+    @ResponseBody
+    public CodeMsg doSaveUser(@RequestBody User user){
+        //添加
+        if(userService.saveUser(user)==1){
+            return new CodeMsg("200","添加成功");
+        }
+        return new CodeMsg("-1","系统错误");
+
+    }
+
+    @RequestMapping(value = "/doUpdateUser")
+    @ResponseBody
+    public CodeMsg doUpdateUser(@RequestBody User user){
+        if(userService.updateBySelective(user)==1){
+            return new CodeMsg("200","添加成功");
+        }
+        return new CodeMsg("-1","系统错误");
+    }
+
+
 
 
     @RequestMapping(value = "findPage",method = RequestMethod.POST)

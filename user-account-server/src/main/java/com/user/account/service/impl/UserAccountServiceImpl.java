@@ -30,6 +30,7 @@ public class UserAccountServiceImpl implements UserAccountService{
 		List<UserAccount> list = userAccountDao.findPage(userAccount);
 		PageInfo<UserAccount> pageInfo = new PageInfo<>(list);
 		System.out.println("value:"+pageInfo.getPageNum());
+
 		return null;
 	}
 
