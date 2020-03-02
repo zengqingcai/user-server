@@ -85,6 +85,9 @@
                         <input id="roleIds" name="roleIds"
                                type="checkbox" th:value="${role.id}" th:text="${role.name}"
                                th:attr ="checked=${user.roleIds.contains(role.id)?true:false}">
+                        <label th:each="dd:role.ssss">
+
+                        </label>
                     </label>
                 </div>
             </div>

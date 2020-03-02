@@ -89,9 +89,13 @@
             <thead>
             <tr>
                 <th hidden="hidden">id</th>
+                <th>pid</th>
                 <th>权限编码</th>
                 <th>名称</th>
-                <th>icon</th>
+                <th>图标路径</th>
+                <th>访问路径</th>
+                <th>类型</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -101,6 +105,9 @@
                     <p th:text="${permission.id}"></p>
                 </td>
                 <td>
+                    <p th:text="${permission.parentId}"></p>
+                </td>
+                <td>
                     <p th:text="${permission.code}"></p>
                 </td>
                 <td>
@@ -108,6 +115,15 @@
                 </td>
                 <td>
                     <p th:text="${permission.icon}"></p>
+                </td>
+                <td>
+                    <p th:text="${permission.url}"></p>
+                </td>
+                <td>
+                    <p th:text="${permission.type==0?'菜单':(permission.type==1?'按钮':'超链接')}"></p>
+                </td>
+                <td>
+                    <p th:text="${permission.status==0?'无效':'有效'}"></p>
                 </td>
                 <td>
                     <div class="btn-group">

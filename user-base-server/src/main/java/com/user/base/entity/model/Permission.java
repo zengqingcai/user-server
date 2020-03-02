@@ -92,4 +92,19 @@ public class Permission implements Serializable {
                 "}";
     }
 
+    /**
+     * 系统管理
+         系统用户
+         角色管理
+         权限管理
+         参数管理
+      用户管理
+         普通用户
+         商务用户
+        用户参数
+      广告管理
+         普通广告
+         app广告
+     */
+
 }
