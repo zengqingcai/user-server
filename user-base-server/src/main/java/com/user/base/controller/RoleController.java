@@ -73,7 +73,7 @@ public class RoleController {
         if(role == null)
             return null;
         //添加
-        return roleService.saveRole(role);
+        return roleService.updateRole(role);
 
     }
 

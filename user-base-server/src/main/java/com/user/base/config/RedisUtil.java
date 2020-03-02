@@ -1,11 +1,13 @@
 package com.user.base.config;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 /**
@@ -90,7 +92,15 @@ public final class RedisUtil {
      * @return 值
      */
 
+    public Object get_old(String key) {
+        return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
     public Object get(String key) {
+        Object result = null;
+
+
+
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 

@@ -49,7 +49,7 @@
     <if test="id != null" >
       and id = #{id,jdbcType=INTEGER}
     </if>
-    <if test="sysUserId != null" >
+    <if test="sysUserId !=null">
       and sys_user_id = #{sysUserId,jdbcType=INTEGER}
     </if>
     <if test="sysRoleId != null" >
@@ -82,13 +82,7 @@
     </trim>
   </insert>
 
-  <!-- 加载用户已有的角色 -->
-  <select id="queryRolesByUserId" resultType="com.user.base.entity.model.Role" parameterType="java.lang.Integer">
-        SELECT id,NAME,available
-        FROM t_sys_role
-        WHERE available =1
-        AND  id  IN ( SELECT sys_role_id FROM t_sys_user_role WHERE sys_user_id =  #{sysUserId,jdbcType=INTEGER} )
-  </select>
+
 
   <select id="queryPersByRoleId" resultMap="PermissionResultMap" parameterType="java.lang.Integer">
        SELECT
@@ -96,4 +90,28 @@
         FROM t_sys_permission WHERE STATUS = 1
        AND id IN (SELECT sys_permission_id  FROM t_sys_role_permission WHERE sys_role_id = #{sysRoleId,jdbcType=INTEGER})
   </select>
+
+
+  <!-- -->
+  <!-- 加载用户已有的角色 -->
+  <select id="queryRolesByUserId" resultType="com.user.base.entity.model.Role" parameterType="java.lang.Integer">
+    SELECT id,NAME,available
+    FROM t_sys_role
+    WHERE available =1
+    AND  id IN ( SELECT sys_role_id FROM t_sys_user_role WHERE sys_user_id =  #{sysUserId,jdbcType=INTEGER} )
+  </select>
+
+
+  <insert id="insertUserRoles" parameterType="java.util.List" useGeneratedKeys="false">
+    INSERT INTO t_sys_user_role(id,sys_user_id,sys_role_id)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.id},
+      #{item.sysUserId},
+      #{item.sysRoleId}
+      )
+    </foreach>
+  </insert>
+
 </mapper>

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.user.base.comm.CodeMsg;
 import com.user.base.entity.model.Role;
 
+import java.util.List;
 import java.util.Map;
 
 public interface RoleService {
@@ -18,8 +19,12 @@ public interface RoleService {
 
     CodeMsg saveRole(Role role);
 
+    CodeMsg updateRole(Role role);
+
     Integer updateSelective(Role role);
 
 
     Integer editPermission(Map<String,Object> params);
+
+    List<Role> queryAllRols();
 }

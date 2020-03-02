@@ -5,6 +5,7 @@ import com.user.base.comm.CodeMsg;
 import com.user.base.comm.CommonPage;
 import com.user.base.comm.RequestBean;
 import com.user.base.comm.ResponseBean;
+import com.user.base.config.RedisUtil;
 import com.user.base.entity.dto.permission.PermissionListDTO;
 import com.user.base.entity.model.Permission;
 import com.user.base.service.PermissionService;
@@ -111,11 +112,20 @@ public class PermissionController {
         return codeMsg;
     }
 
+
+    @Autowired
+    private RedisUtil redisUtil;
+
     @RequestMapping(value = "doTest14",method = RequestMethod.POST)
     @ResponseBody
     public CodeMsg doUploadPermission14(@RequestBody Permission permission){
         if(permission == null)
             return null;
+        Object o = redisUtil.get("a");
+
+        System.out.println("a-value:"+(redisUtil.get("a")).toString());
+        redisUtil.set("hello",1234);
+        System.out.println("a-value:"+redisUtil.get("hello"));
         System.out.println("========doTest14,name:"+permission.getName());
         CodeMsg codeMsg = new CodeMsg("200014","修改成功");
         return codeMsg;

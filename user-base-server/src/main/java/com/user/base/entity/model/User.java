@@ -3,6 +3,8 @@ package com.user.base.entity.model;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class User {
@@ -22,4 +24,7 @@ public class User {
     private String salt;
 
     private Integer status;
+
+    //
+    private List<Integer> roleIds = new ArrayList<>();
 }

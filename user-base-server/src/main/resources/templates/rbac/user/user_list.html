@@ -32,6 +32,10 @@
         function load(id) {
             window.location.href = "/sys/user/toAddPage?id="+id;
         }
+        function editRole(id) {
+            window.location.href = "/sys/user/toAddRolePage?id="+id;
+
+        }
     </script>
 </head>
 <body>
@@ -73,6 +77,7 @@
                     <td>
                         <div class="btn-group">
                             <button type="button" class="btn btn-success" th:onclick="|load(${user.id})|">编辑</button>
+                            <button type="button" class="btn btn-success" th:onclick="|editRole(${user.id})|">设置角色</button>
                         </div>
                     </td>
                 </tr>

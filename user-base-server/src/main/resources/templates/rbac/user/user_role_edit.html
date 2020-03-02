@@ -25,41 +25,20 @@
     <script type="text/javascript" src="/js/myjs/common.js"></script>
     <script type="text/javascript">
         function doEdit() {
-            if($("#id").val().trim() == ''){
-                doSaveUser();
-                return;
-            }
-            if($("#id").val().trim() != ''){
-                doUpdateUser();
-                return;
-            }
+            doSaveUserRole();
             
         }
         
-        function doSaveUser() {
-            $.ajax({
-                url:"/sys/user/doSaveUser",
-                type:"post",
-                dataType:"json",
-                contentType :"application/json",
-                data: JSON.stringify($('#myform').serializeObject()),
-                success:function(data){
-                    if(data.code==200){
-                        alert(data.message);
-                        window.location.href = "/sys/user/userList";
-                    }else{
-                        alert(data.message);
-                    }
-                },
-                error:function () {
-                    alert("系统错误！")
-                }
-            });
-        }
+        function doSaveUserRole() {
 
-        function doUpdateUser() {
+            if($('input[type=checkbox]:checked').length==1){
+                alert($('input[type=checkbox]:checked').val());
+                var checkRoleId = $('input[type=checkbox]:checked').val();
+                $('input[type=checkbox]:checked').attr('checked',false);
+            }
+
             $.ajax({
-                url:"/sys/user/doUpdateUser",
+                url:"/sys/user/doSaveUserRole?checkRoleId="+ checkRoleId+"&temp=14",
                 type:"post",
                 dataType:"json",
                 contentType :"application/json",
@@ -83,36 +62,30 @@
 <form id="myform" enctype="multipart/form-data" method="post">
     <div class="panel panel-default" style="width: 50%; margin: 10px auto;">
         <div class="panel-heading" style="font-weight: 600;">
-            用户编辑,
+            用户角色编辑,
             id:<input th:value="${user.id}" id="id" readonly="readonly" name="id">
         </div>
         <div class="panel-body">
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户编码</label>
                 <div class="col-sm-10">
-                    <input class="form-control" th:value="${user.usercode}"  name="usercode" type="text">
+                    <input class="form-control" th:value="${user.usercode}"  name="usercode" type="text" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户姓名</label>
                 <div class="col-sm-10">
-                    <input class="form-control" th:value="${user.username}"  name="username" type="text">
+                    <input class="form-control" th:value="${user.username}"  name="username" type="text" readonly>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">用户密码</label>
-                <div class="col-sm-10">
-                    <input class="form-control" th:value="${user.password}"  name="password" type="text">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">状态</label>
-                <div class="col-sm-10">
-                    <select name="status" class="select-control">
-                        <option value="1" th:selected="${user.status == 1}">----有效----</option>
-                        <option value="0" th:selected="${user.status == 0}">----无效----</option>
-                    </select>
+                <label class="col-sm-2 control-label">用户角色</label>
+                <div class="col-sm-9">
+                    <label th:each="role:${roleList}" class="check-box">
+                        <input id="roleIds" name="roleIds"
+                               type="checkbox" th:value="${role.id}" th:text="${role.name}"
+                               th:attr ="checked=${user.roleIds.contains(role.id)?true:false}">
+                    </label>
                 </div>
             </div>
             <div class="form-group">

@@ -5,7 +5,11 @@ import com.user.base.comm.CodeMsg;
 import com.user.base.comm.CommonPage;
 import com.user.base.comm.RequestBean;
 import com.user.base.comm.ResponseBean;
+import com.user.base.dao.UserRoleMapper;
+import com.user.base.entity.model.Role;
 import com.user.base.entity.model.User;
+import com.user.base.entity.model.UserRole;
+import com.user.base.service.RoleService;
 import com.user.base.service.UserService;
 import com.user.common.exception.BuExceptionEnum;
 import com.user.common.exception.BusinessException;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,13 +38,18 @@ public class SysUserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
 
     @RequestMapping(value = "/userList")
     public String userList(User user, ModelMap modelMap) {
         PageInfo<User> pageInfo = userService.findPage(user);
         List<User> list = pageInfo.getList();
         CommonPage page = CommonPage.setPageModel(pageInfo);
-        //modelMap.put("selectModel",params);
         modelMap.put("userList",list);
         modelMap.put("page",page);
 
@@ -73,9 +83,62 @@ public class SysUserController {
     @ResponseBody
     public CodeMsg doUpdateUser(@RequestBody User user){
         if(userService.updateBySelective(user)==1){
-            return new CodeMsg("200","添加成功");
+            return new CodeMsg("200","修改成功");
         }
         return new CodeMsg("-1","系统错误");
+    }
+
+    @RequestMapping(value = "/toAddRolePage")
+    public String toAddRolePage(HttpServletRequest request, ModelMap modelMap){
+        if(request.getParameter("id")!=null && !request.getParameter("id").equals("")) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
+            User user = userService.queryByPrimary(id);
+            modelMap.put("user",user);
+            List<Role> allRoles = roleService.queryAllRols();
+            List<Role>  roleList = userRoleMapper.queryRolesByUserId(id);
+            List<Integer> roleIds = new ArrayList<>();
+            user.setRoleIds(roleIds);
+            for(Role role:roleList){
+                roleIds.add(role.getId());
+            }
+            modelMap.put("roleList",allRoles);
+        }else {
+            modelMap.put("user",new User());
+        }
+        return "rbac/user/user_role_edit";
+    }
+
+    @RequestMapping(value = "/doSaveUserRole")
+    @ResponseBody
+    public CodeMsg doSaveUserRole(@RequestBody User user,HttpServletRequest request){
+
+        //把旧的数据删除
+        UserRole userRole = new UserRole();
+        userRole.setSysUserId(user.getId());
+        userRoleMapper.deleteByParams(userRole);
+        //添加新的数据
+        List<UserRole> list = new ArrayList<>();
+        if(user.getRoleIds().size()<=0){
+            String str = request.getParameter("checkRoleId");
+            Integer roleId = Integer.valueOf(str);
+            UserRole userRole1 = new UserRole();
+            userRole1.setSysUserId(user.getId());
+            userRole1.setSysRoleId(roleId);
+            list.add(userRole1);
+        }else {
+            for (Integer roleId : user.getRoleIds()) {
+                UserRole userRole1 = new UserRole();
+                userRole1.setSysUserId(user.getId());
+                userRole1.setSysRoleId(roleId);
+                list.add(userRole1);
+            }
+        }
+        if(list.size()>0) {
+            Integer i = userRoleMapper.insertUserRoles(list);
+            return new CodeMsg("200", "角色设置成功");
+        }
+        return new CodeMsg("200", "角色设置成功");
+
     }
 
 

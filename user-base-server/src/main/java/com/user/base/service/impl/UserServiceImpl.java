@@ -84,9 +84,9 @@ public class UserServiceImpl implements UserService{
 		if(userMapper.queryUserByUserCodeWithoutId(user)!=null){
 			throw new BusinessException(BuExceptionEnum.ACCOUNT_AGAINT);
 		}
-		if(StringUtils.isNotBlank(user.getPassword())){
-            user.setPassword(MD5Util.md5(user.getPassword()));
-        }
+//		if(StringUtils.isNotBlank(user.getPassword())){
+//            user.setPassword(MD5Util.md5(user.getPassword()));
+//        }
 		return userMapper.updateBySelective(user);
 	}
 

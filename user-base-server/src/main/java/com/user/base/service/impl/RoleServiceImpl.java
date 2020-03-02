@@ -66,6 +66,21 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public CodeMsg updateRole(Role role) {
+        CodeMsg codeMsg = null;
+        List<Role> list = roleMapper.queryByParams(role);
+        if(list.size()>0){
+            codeMsg = new CodeMsg("201","名称重复！");
+            return codeMsg;
+        }
+        if(roleMapper.updateSelective(role)==1){
+            codeMsg = new CodeMsg("200","修改成功！");
+            return codeMsg;
+        }
+        return null;    }
+
+
+    @Override
     public Integer updateSelective(Role role) {
         return roleMapper.updateSelective(role);
     }
@@ -91,5 +106,10 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         return -1;
+    }
+
+    @Override
+    public List<Role> queryAllRols() {
+        return roleMapper.queryByParams(null);
     }
 }

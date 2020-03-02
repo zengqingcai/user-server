@@ -54,10 +54,10 @@ $(function () {
                     url: '/role/roleList'
                 }]
             },{
-                id: '32',
-                text: '权限管理',
-                icon: 'fa fa-pencil fa-fw',
-                url: '/permission/permissionList'
+                    id: '32',
+                    text: '权限管理',
+                    icon: 'fa fa-pencil fa-fw',
+                    url: '/permission/permissionList'
             },{
                 id: '31',
                 text: '系统参数',
@@ -78,3 +78,24 @@ $(function () {
         }]
     });
 });
+
+
+
+$(function () {
+    $.ajax({
+        url:"/index2",
+        type:"post",
+        dataType:"json",
+        contentType :"application/json",
+        success:function(data){
+            $('#menu').sidebarMenu({
+                data: data
+            });
+
+        },
+        error:function () {
+            alert("系统错误！")
+        }
+    });
+});
+//https://www.cnblogs.com/gjq1126-web/p/11367586.html 菜单树显示

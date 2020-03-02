@@ -1,8 +1,6 @@
 package com.user.base.entity.model;
 
-import lombok.Data;
 
-@Data
 public class UserRole {
 
     private Integer id;
@@ -10,4 +8,28 @@ public class UserRole {
     private Integer sysUserId;
 
     private Integer sysRoleId;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getSysUserId() {
+        return sysUserId;
+    }
+
+    public void setSysUserId(Integer sysUserId) {
+        this.sysUserId = sysUserId;
+    }
+
+    public Integer getSysRoleId() {
+        return sysRoleId;
+    }
+
+    public void setSysRoleId(Integer sysRoleId) {
+        this.sysRoleId = sysRoleId;
+    }
 }

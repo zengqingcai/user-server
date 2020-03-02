@@ -17,4 +17,6 @@ public interface UserRoleMapper {
     List<Role> queryRolesByUserId(Integer sysUserId);
 
     List<Permission> queryPersByRoleId(Integer sysRoleId);
+
+    Integer insertUserRoles(List<UserRole> list);
 }
