@@ -5,7 +5,7 @@ import com.user.base.comm.CodeMsg;
 import com.user.base.comm.CommonPage;
 import com.user.base.entity.model.Params;
 import com.user.base.service.ParamsService;
-import com.user.common.utils.moth.BigDecimalUtils;
+import com.user.app.utils.moth.BigDecimalUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

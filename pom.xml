@@ -110,7 +110,9 @@
 		<module>user-base-server</module>
 		<module>user-account-server</module>
         <module>user-common</module>
-    </modules>
+        <module>user-general-server</module>
+		<module>user-doctor-server</module>
+	</modules>
 	
 	<build>
 	    <plugins>

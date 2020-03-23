@@ -92,8 +92,13 @@ public final class RedisUtil {
      * @return 值
      */
 
-    public Object get_old(String key) {
-        return key == null ? null : redisTemplate.opsForValue().get(key);
+    public <T> T getForClass(String key,Class<T> tClass) {
+        Object object = redisTemplate.opsForValue().get(key);
+        if(object != null){
+            T clazz = (T) object;
+            return clazz;
+        }
+        return null;
     }
 
     public Object get(String key) {

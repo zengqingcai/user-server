@@ -27,6 +27,7 @@ public class Student implements Comparable<Student>{
 
     public Student(){}
 
+    //todo 排序
     public static void main(String[] args) {
         List<Student> list = new ArrayList<Student>();
         list.add(new Student(1, "Mahesh", 12));

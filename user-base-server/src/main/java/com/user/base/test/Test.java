@@ -14,6 +14,7 @@ import javax.mail.internet.MimeMessage.RecipientType;
 
 public class Test {
 
+    //todo 邮件的发送
     public static void main(String[] args) throws MessagingException {
 
         // 创建Properties 类用于记录邮箱的一些属性

@@ -1,0 +1,3 @@
+mvn mybatis-generator:generate自动生成代码
+集合的知识有分组与排序
+邮件的发送

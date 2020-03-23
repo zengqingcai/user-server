@@ -16,4 +16,10 @@ public class AppleIml implements AppleInter {
     public void eatMethod() {
 
     }
+
+    @Override
+    public Menu getT() {
+        return null;
+    }
+
 }
