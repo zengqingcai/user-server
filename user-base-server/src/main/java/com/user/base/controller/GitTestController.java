@@ -1,6 +1,6 @@
 package com.user.base.controller;
 
-import com.user.base.comm.CodeMsg;
+import com.user.base.common.CodeMsg;
 import com.user.base.config.RedisUtil;
 import com.user.base.entity.model.Permission;
 import org.springframework.beans.factory.annotation.Autowired;

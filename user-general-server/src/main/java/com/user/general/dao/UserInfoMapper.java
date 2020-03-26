@@ -2,6 +2,7 @@ package com.user.general.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.user.general.entity.domain.UserInfo;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author zeng
  * @since 2020-03-23
  */
+@Repository
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
     UserInfo queryByPrimary(Integer id);

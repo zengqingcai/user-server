@@ -1,11 +1,10 @@
 package com.user.base.service;
 
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
+import com.user.base.common.CodeMsg;
+import com.user.base.entity.dto.request.ParamsQueryRequestDTO;
+import com.user.base.entity.dto.response.ParamsQueryResponseDTO;
 import com.user.base.entity.model.Params;
-import com.user.base.entity.model.Role;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -17,8 +16,7 @@ import java.io.Serializable;
  */
 public interface ParamsService{
 
-    PageInfo<Params> findPage(Params params);
-
+    PageInfo<ParamsQueryResponseDTO> findPage(ParamsQueryRequestDTO params) throws Exception;
 
     Params selectById(Integer id);
 

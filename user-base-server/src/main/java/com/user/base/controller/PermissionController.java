@@ -1,10 +1,10 @@
 package com.user.base.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
-import com.user.base.comm.CommonPage;
-import com.user.base.comm.RequestBean;
-import com.user.base.comm.ResponseBean;
+import com.user.base.common.CodeMsg;
+import com.user.base.common.CommonPage;
+import com.user.base.common.RequestBean;
+import com.user.base.common.ResponseBean;
 import com.user.base.config.RedisUtil;
 import com.user.base.entity.dto.permission.PermissionListDTO;
 import com.user.base.entity.model.Permission;

@@ -2,7 +2,7 @@ package com.user.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
+import com.user.base.common.CodeMsg;
 import com.user.base.dao.RoleMapper;
 import com.user.base.dao.RolePermissionMapper;
 import com.user.base.entity.model.Role;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

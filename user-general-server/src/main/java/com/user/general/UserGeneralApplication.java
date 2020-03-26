@@ -18,7 +18,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication(scanBasePackages = "com.user.general")
 @EnableCaching(proxyTargetClass = true) // 开启缓存功能
 @EnableAsync
-@MapperScan("com.user.general.**.dao")
+@MapperScan("com.user.general.dao")
 @EnableFeignClients(basePackages = "com.user.general")
 @SpringCloudApplication
 public class UserGeneralApplication extends SpringBootServletInitializer implements CommandLineRunner {

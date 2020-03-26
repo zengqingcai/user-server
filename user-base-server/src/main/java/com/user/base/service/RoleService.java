@@ -1,7 +1,7 @@
 package com.user.base.service;
 
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
+import com.user.base.common.CodeMsg;
 import com.user.base.entity.model.Role;
 
 import java.util.List;

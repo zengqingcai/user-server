@@ -6,15 +6,15 @@
     <resultMap id="BaseResultMap" type="com.user.base.entity.model.Params">
         <id column="id" property="id" />
         <result column="pid" property="pid" />
+        <result column="parent_key" property="parentKey" />
         <result column="params_key" property="paramsKey" />
         <result column="params_value" property="paramsValue" />
         <result column="params_desc" property="paramsDesc" />
-        <result column="leaf" property="leaf" />
         <result column="status" property="status" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        id,pid,params_key, params_value, params_desc,leaf,status
+        id,pid,parent_key,params_key, params_value, params_desc,status
     </sql>
 
     <select id="queryByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,12 +29,15 @@
         <include refid="Base_Column_List" />
         from t_sys_params
         <where>
-            <!-- 排除id本事 -->
+            <!-- 修改的时候排除本身 -->
             <if test="id != null" >
                 and id != #{id,jdbcType=INTEGER}
             </if>
             <if test="pid != null" >
                 and pid = #{pid,jdbcType=INTEGER}
+            </if>
+            <if test="parentKey != null and parentKey != ''" >
+                and parent_key LIKE CONCAT('%',#{parentKey},'%')
             </if>
             <if test="paramsKey != null and paramsKey != ''" >
                 and params_key LIKE CONCAT('%',#{paramsKey},'%')
@@ -45,18 +48,19 @@
             <if test="paramsDesc != null and paramsDesc != ''" >
                 and params_desc = #{paramsDesc,jdbcType=VARCHAR}
             </if>
-            <if test="leaf != null" >
-                and leaf = #{leaf,jdbcType=INTEGER}
-            </if>
             <if test="status != null" >
                 and status = #{status,jdbcType=INTEGER}
             </if>
         </where>
+        ORDER BY pid
     </select>
 
     <select id="queryValueByKey" resultType="java.lang.String" parameterType="java.lang.String" >
-        select params_value from t_sys_params where status = 1 and params_key = #{paramsKey,jdbcType=VARCHAR}  limit 1
-
+        select params_value
+        from t_sys_params
+        where status = 1
+        and params_key = #{paramsKey,jdbcType=VARCHAR}
+        limit 1
     </select>
 
     <insert id="insertSelective" parameterType="com.user.base.entity.model.Params" useGeneratedKeys="true" keyProperty="id">
@@ -65,6 +69,9 @@
 
             <if test="pid != null" >
                  pid,
+            </if>
+            <if test="parentKey != null and parentKey != ''" >
+                parent_key,
             </if>
             <if test="paramsKey != null and paramsKey != ''" >
                 params_key,
@@ -75,9 +82,6 @@
             <if test="paramsDesc != null and paramsDesc != ''" >
                 params_desc,
             </if>
-            <if test="leaf != null" >
-                leaf,
-            </if>
             <if test="status != null" >
                 status,
             </if>
@@ -85,6 +89,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="pid != null" >
                 #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="parentKey != null and parentKey != ''" >
+                #{parentKey,jdbcType=VARCHAR},
             </if>
             <if test="paramsKey != null and paramsKey != ''" >
                 #{paramsKey,jdbcType=VARCHAR},
@@ -94,9 +101,6 @@
             </if>
             <if test="paramsDesc != null and paramsDesc != ''" >
                 #{paramsDesc,jdbcType=VARCHAR},
-            </if>
-            <if test="leaf != null" >
-                #{leaf,jdbcType=INTEGER},
             </if>
             <if test="status != null" >
                 #{status,jdbcType=INTEGER},
@@ -110,6 +114,9 @@
             <if test="pid != null" >
                 pid = #{pid,jdbcType=INTEGER},
             </if>
+            <if test="parentKey != null and parentKey != ''" >
+                parent_key = #{parentKey,jdbcType=VARCHAR},
+            </if>
             <if test="paramsKey != null and paramsKey != ''" >
                 params_key = #{paramsKey,jdbcType=VARCHAR},
             </if>
@@ -118,9 +125,6 @@
             </if>
             <if test="paramsDesc != null and paramsDesc != ''" >
                 params_desc = #{paramsDesc,jdbcType=VARCHAR},
-            </if>
-            <if test="leaf != null" >
-                leaf = #{leaf,jdbcType=INTEGER},
             </if>
             <if test="status != null" >
                 status = #{status,jdbcType=INTEGER},

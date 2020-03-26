@@ -1,9 +1,7 @@
 package com.user.base.remote;
 
-import org.springframework.stereotype.Component;
-
-import com.user.base.comm.RequestBean;
-import com.user.base.comm.ResponseBean;
+import com.user.base.common.RequestBean;
+import com.user.base.common.ResponseBean;
 import com.user.base.remote.entity.UserAccount;
 
 //@Component

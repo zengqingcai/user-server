@@ -1,13 +1,10 @@
 package com.user.base.controller;
 
-import com.user.base.comm.CodeMsg;
-import com.user.base.comm.RequestBean;
-import com.user.base.comm.ResponseBean;
-import com.user.base.entity.model.Permission;
-import com.user.base.entity.model.Role;
+import com.user.base.common.CodeMsg;
+import com.user.base.common.RequestBean;
+import com.user.base.common.ResponseBean;
 import com.user.base.entity.model.User;
 import com.user.base.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -19,12 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class LoginController {

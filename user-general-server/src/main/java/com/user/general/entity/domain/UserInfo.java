@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,6 +21,10 @@ import java.time.LocalDateTime;
  * @since 2020-03-23
  */
 @TableName("t_bu_user_info")
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,109 +57,10 @@ public class UserInfo implements Serializable {
      */
     private Integer ava;
 
+    private Integer currentPage = 1;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer pageSize = 10;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
-    public LocalDateTime getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public LocalDateTime getCt() {
-        return ct;
-    }
-
-    public void setCt(LocalDateTime ct) {
-        this.ct = ct;
-    }
-
-    public LocalDateTime getUt() {
-        return ut;
-    }
-
-    public void setUt(LocalDateTime ut) {
-        this.ut = ut;
-    }
-
-    public Long getCid() {
-        return cid;
-    }
-
-    public void setCid(Long cid) {
-        this.cid = cid;
-    }
-
-    public Long getUid() {
-        return uid;
-    }
-
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
-
-    public Integer getAva() {
-        return ava;
-    }
-
-    public void setAva(Integer ava) {
-        this.ava = ava;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-        ", id=" + id +
-        ", userId=" + userId +
-        ", userName=" + userName +
-        ", age=" + age +
-        ", sex=" + sex +
-        ", lastLoginTime=" + lastLoginTime +
-        ", ct=" + ct +
-        ", ut=" + ut +
-        ", cid=" + cid +
-        ", uid=" + uid +
-        ", ava=" + ava +
-        "}";
-    }
 }

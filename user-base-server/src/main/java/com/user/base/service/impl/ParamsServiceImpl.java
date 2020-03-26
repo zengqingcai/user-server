@@ -2,14 +2,17 @@ package com.user.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
+import com.user.base.common.CodeMsg;
 import com.user.base.dao.ParamsMapper;
+import com.user.base.entity.dto.request.ParamsQueryRequestDTO;
+import com.user.base.entity.dto.response.ParamsQueryResponseDTO;
 import com.user.base.entity.model.Params;
 import com.user.base.service.ParamsService;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +28,15 @@ public class ParamsServiceImpl implements ParamsService {
 
 
     @Override
-    public PageInfo<Params> findPage(Params params) {
-
-        PageHelper.startPage(params.getCurrentPage(),params.getPageSize());
+    public PageInfo<ParamsQueryResponseDTO> findPage(ParamsQueryRequestDTO paramsDto) throws Exception{
+        Params params = new Params();
+        BeanUtils.copyProperties(params,paramsDto);
+        PageHelper.startPage(paramsDto.getCurrentPage(),paramsDto.getPageSize());
         List<Params> list = paramsMapper.queryByParams(params);
-        PageInfo<Params> pageInfo = new PageInfo<>(list);
+        List<ParamsQueryResponseDTO> list1 = new ArrayList<>();
+        //new CopyList().copyList(ParamsQueryResponseDTO.class,list1,list);
+        new CopyList(ParamsQueryResponseDTO.class,list1,list);
+        PageInfo<ParamsQueryResponseDTO> pageInfo = new PageInfo<>(list1);
         return pageInfo;
     }
 

@@ -1,11 +1,12 @@
 package com.user.base.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
-import com.user.base.comm.CommonPage;
+import com.user.base.common.CodeMsg;
+import com.user.base.common.CommonPage;
+import com.user.base.entity.dto.request.ParamsQueryRequestDTO;
+import com.user.base.entity.dto.response.ParamsQueryResponseDTO;
 import com.user.base.entity.model.Params;
 import com.user.base.service.ParamsService;
-import com.user.app.utils.moth.BigDecimalUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,38 +26,21 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/params")
-@Api(value = "角色管理", description = "角色管理接口")
+@Api(value = "系统参数管理", description = "系统参数接口")
 public class ParamsController {
 
     @Autowired
     private ParamsService paramsService;
 
     @RequestMapping(value = "/paramsList")
-    public String paramsList(Params params, ModelMap modelMap,HttpServletRequest request)throws Exception{
-        PageInfo<Params> pageInfo = paramsService.findPage(params);
-        List<Params> list = pageInfo.getList();
+    public String paramsList(ParamsQueryRequestDTO requestDTO, ModelMap modelMap)throws Exception{
+        PageInfo<ParamsQueryResponseDTO> pageInfo = paramsService.findPage(requestDTO);
+        List<ParamsQueryResponseDTO> list = pageInfo.getList();
         CommonPage page = CommonPage.setPageModel(pageInfo);
-        modelMap.put("selectModel",params);
+        modelMap.put("selectModel",requestDTO);
         modelMap.put("paramsList",list);
         modelMap.put("page",page);
-
         return "system/params_list";
-    }
-
-    private String getRequestBody(HttpServletRequest request)throws Exception{
-        try (BufferedInputStream bis = new BufferedInputStream(request.getInputStream());
-             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = bis.read(buffer)) > 0) {
-                baos.write(buffer, 0, len);
-            }
-            byte[] bytes = baos.toByteArray();
-            String body = new String(bytes);
-            return body;
-        } catch (IOException ex) {
-            throw ex;
-        }
     }
 
     //
@@ -68,9 +48,28 @@ public class ParamsController {
     public String toAddPage(HttpServletRequest request, ModelMap modelMap){
         if(request.getParameter("id")!=null && !request.getParameter("id").equals("")) {
             Integer id = Integer.parseInt(request.getParameter("id"));
-            modelMap.put("params",paramsService.selectById(id));
+            Params params = paramsService.selectById(id);
+            modelMap.put("params",params);
+            modelMap.put("parentValue",paramsService.getValueByKey(params.getParentKey()));
         }else {
             modelMap.put("params",new Params());
+            modelMap.put("parentValue","");
+        }
+
+        return "system/params_edit";
+    }
+
+
+    @RequestMapping(value = "/toAddSubPage")
+    public String toAddSubPage(HttpServletRequest request, ModelMap modelMap){
+        if(request.getParameter("pid")!=null && !request.getParameter("pid").equals("")) {
+            Integer id = Integer.parseInt(request.getParameter("pid"));
+            Params params = paramsService.selectById(id);
+            Params params1 = new Params();
+            params1.setPid(params.getId());
+            params1.setParentKey(params.getParamsKey());
+            modelMap.put("params",params1);
+            modelMap.put("parentValue",params.getParamsValue());
         }
         return "system/params_edit";
     }

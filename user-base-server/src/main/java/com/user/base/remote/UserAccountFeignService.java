@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.user.base.comm.RequestBean;
-import com.user.base.comm.ResponseBean;
+import com.user.base.common.RequestBean;
+import com.user.base.common.ResponseBean;
 import com.user.base.remote.entity.UserAccount;
 
 
 @Profile("!mock")
 @FeignClient(name = "user-account",fallback = UserAccountFallback.class)
-@RequestMapping(value = "/user/account")
+@RequestMapping(value = "/userBase")
 public interface UserAccountFeignService {
 	
-	@RequestMapping(value = "/findById", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveUserBase", method = RequestMethod.POST)
     ResponseBean<UserAccount> findAccountById(@RequestBody RequestBean<Integer> requestBean);
 
 }

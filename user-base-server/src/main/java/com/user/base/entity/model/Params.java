@@ -33,6 +33,10 @@ public class Params implements Serializable {
 
     @TableField("pid")
     private Integer pid;
+
+
+    @TableField("parent_key")
+    private String parentKey;
     /**
      * key值
      */
@@ -48,19 +52,12 @@ public class Params implements Serializable {
      */
     @TableField("params_desc")
     private String paramsDesc;
-    /**
-     * 0:不是叶子节点 1:是
-     */
-    @TableField("leaf")
-    private Integer leaf;
+
     /**
      * 0:无效 1:有效
      */
     @TableField("status")
     private Integer status;
 
-    private Integer currentPage = 1;
-
-    private Integer pageSize = 10;
 
 }

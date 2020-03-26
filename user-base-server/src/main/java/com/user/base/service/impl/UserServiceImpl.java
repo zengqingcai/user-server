@@ -8,10 +8,9 @@ import com.github.pagehelper.PageInfo;
 import com.user.base.annotation.TestAccess;
 import com.user.base.dao.UserRoleMapper;
 import com.user.base.entity.model.UserRole;
-import com.user.app.exception.BuExceptionEnum;
-import com.user.app.exception.BusinessException;
-import com.user.app.utils.codec.MD5Util;
-import org.apache.commons.lang.StringUtils;
+import com.user.common.exception.BuExceptionEnum;
+import com.user.common.exception.BusinessException;
+import com.user.common.utils.codec.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.user.base.dao.UserMapper;

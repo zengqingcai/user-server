@@ -2,13 +2,13 @@ package com.user.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.user.base.comm.CodeMsg;
+import com.user.base.common.CodeMsg;
 import com.user.base.dao.PermissionMapper;
 import com.user.base.entity.dto.permission.PermissionListDTO;
 import com.user.base.entity.model.Permission;
 import com.user.base.service.PermissionService;
-import com.user.app.exception.BuExceptionEnum;
-import com.user.app.exception.BusinessException;
+import com.user.common.exception.BuExceptionEnum;
+import com.user.common.exception.BusinessException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
