@@ -11,6 +11,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -47,9 +48,9 @@ public class UserInfo implements Serializable {
      */
     private Integer sex;
     @TableField("last_login_time")
-    private LocalDateTime lastLoginTime;
-    private LocalDateTime ct;
-    private LocalDateTime ut;
+    private Date lastLoginTime;
+    private Date ct;
+    private Date ut;
     private Long cid;
     private Long uid;
     /**

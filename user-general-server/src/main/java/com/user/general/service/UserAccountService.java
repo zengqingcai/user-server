@@ -1,6 +1,7 @@
 package com.user.general.service;
 
 import com.github.pagehelper.PageInfo;
+import com.user.common.model.CodeMsg;
 import com.user.general.entity.domain.UserAccount;
 
 /**
@@ -14,12 +15,12 @@ public interface UserAccountService {
 
 
 
-    Integer saveUserAccount(UserAccount userAccount);
+    CodeMsg saveUserAccount(UserAccount userAccount);
 
 
 
     UserAccount loadUserAccount(Integer userAccountId);
 
 
-    Integer updateUserAccount(UserAccount userAccount);
+    CodeMsg updateUserAccount(UserAccount userAccount);
 }

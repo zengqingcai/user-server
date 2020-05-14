@@ -52,7 +52,7 @@ public class UserBaseServiceImpl implements UserBaseService {
             if(userBaseMapper.insertSelective(userBase)==1) {
                 return CodeMsg.SUCCESS;
             }
-            return CodeMsg.ERROR;
+            return CodeMsg.SYS_ERROR;
         }
         return new CodeMsg(CodeMsgEnum.KEY_EXCEPTION);
     }
@@ -66,7 +66,7 @@ public class UserBaseServiceImpl implements UserBaseService {
             if(userBaseMapper.updateBySelective(userBase)==1) {
                 return CodeMsg.SUCCESS;
             }
-            return CodeMsg.ERROR;
+            return CodeMsg.PARAM_ERROR;
         }
         return new CodeMsg(CodeMsgEnum.KEY_EXCEPTION);
     }

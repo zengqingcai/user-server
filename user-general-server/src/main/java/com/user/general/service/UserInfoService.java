@@ -1,6 +1,7 @@
 package com.user.general.service;
 
 import com.github.pagehelper.PageInfo;
+import com.user.common.model.CodeMsg;
 import com.user.general.entity.domain.UserInfo;
 
 /**
@@ -15,12 +16,12 @@ public interface UserInfoService {
 
 
 
-    Integer saveUserInfo(UserInfo userInfo);
+    CodeMsg saveUserInfo(UserInfo userInfo);
 
 
 
     UserInfo loadUserInfo(Integer userInfoId);
 
 
-    Integer updateUserInfo(UserInfo userInfo);
+    CodeMsg updateUserInfo(UserInfo userInfo);
 }

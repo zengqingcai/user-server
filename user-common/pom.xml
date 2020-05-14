@@ -12,7 +12,21 @@
     <artifactId>user-common</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-jdk8</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
@@ -34,6 +48,11 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -43,7 +62,7 @@
                 <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
                 <!--<configuration>-->
                     <!--&lt;!&ndash; 指定该Main Class为全局的唯一入口 &ndash;&gt;-->
-                    <!--<mainClass>com.user.app.UserCommonApplication</mainClass>-->
+                    <!--<mainClass>com.user.pay.UserCommonApplication</mainClass>-->
                     <!--<layout>ZIP</layout>-->
                 <!--</configuration>-->
                 <!--<executions>-->

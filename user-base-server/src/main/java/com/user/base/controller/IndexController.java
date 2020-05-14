@@ -38,7 +38,7 @@ public class IndexController {
         menu11.setId("11");
         menu11.setText("用户列表");
         menu11.setIcon("fa fa-group fa-fw");
-        menu11.setUrl("/app/user/userList");
+        menu11.setUrl("/sms/user/userList");
         Menu menu12 = new Menu();
         menuList1.add(menu12);
         menu12.setId("12");

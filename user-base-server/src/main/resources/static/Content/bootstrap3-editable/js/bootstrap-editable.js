@@ -420,7 +420,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
         /* see also defaults for input */
 
         /**
-        Type of input. Can be <code>text|textarea|select|date|checklist</code>
+        Type of input. Can be <code>text|textarea|select|datetime|checklist</code>
 
         @property type 
         @type string
@@ -817,7 +817,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
            var TypeConstructor, typeOptions, input,
            type = options.type;
 
-           //`date` is some kind of virtual type that is transformed to one of exact types
+           //`datetime` is some kind of virtual type that is transformed to one of exact types
            //depending on mode and core lib
            if(type === 'date') {
                //inline
@@ -836,7 +836,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                    }
                }
                
-               //if type still `date` and not exist in types, replace with `combodate` that is base input
+               //if type still `datetime` and not exist in types, replace with `combodate` that is base input
                if(type === 'date' && !$.fn.editabletypes.date) {
                    type = 'combodate';
                } 
@@ -2148,7 +2148,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
 
     $.fn.editable.defaults = {
         /**
-        Type of input. Can be <code>text|textarea|select|date|checklist</code> and more
+        Type of input. Can be <code>text|textarea|select|datetime|checklist</code> and more
 
         @property type 
         @type string
@@ -2189,7 +2189,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         **/         
         emptytext: 'Empty',
         /**
-        Allows to automatically set element's text based on it's value. Can be <code>auto|always|never</code>. Useful for select and date.
+        Allows to automatically set element's text based on it's value. Can be <code>auto|always|never</code>. Useful for select and datetime.
         For example, if dropdown list is <code>{1: 'a', 2: 'b'}</code> and element's value set to <code>1</code>, it's html will be automatically set to <code>'a'</code>.  
         <code>auto</code> - text will be automatically set only if element is empty.  
         <code>always|never</code> - always(never) try to set element's text.
@@ -3945,7 +3945,7 @@ $(function(){
 
 /**
 * Combodate - 1.0.5
-* Dropdown date and time picker.
+* Dropdown datetime and time picker.
 * Converts text input into dropdowns to pick day, month, year, hour, minute and second.
 * Uses momentjs as datetime library http://momentjs.com.
 * For i18n include corresponding file from https://github.com/timrwood/moment/tree/master/lang 
@@ -4227,7 +4227,7 @@ $(function(){
         },                                       
 
         /*
-         Returns current date value from combos. 
+         Returns current datetime value from combos. 
          If format not specified - `options.format` used.
          If format = `null` - Moment object returned.
         */
@@ -4268,7 +4268,7 @@ $(function(){
             
             dt = moment([values.year, values.month, values.day, values.hour, values.minute, values.second]);
             
-            //highlight invalid date
+            //highlight invalid datetime
             this.highlight(dt);
                               
             format = format === undefined ? this.options.format : format;
@@ -4305,7 +4305,7 @@ $(function(){
             }             
             
             if(dt.isValid()) {
-                //read values from date object
+                //read values from datetime object
                 $.each(this.map, function(k, v) {
                     if(k === 'ampm') {
                        return; 
@@ -4354,7 +4354,7 @@ $(function(){
         },
         
         /*
-         highlight combos if date is invalid
+         highlight combos if datetime is invalid
         */
         highlight: function(dt) {
             if(!dt.isValid()) {
@@ -4392,7 +4392,7 @@ $(function(){
         var d, args = Array.apply(null, arguments);
         args.shift();
 
-        //getValue returns date as string / object (not jQuery object)
+        //getValue returns datetime as string / object (not jQuery object)
         if(option === 'getValue' && this.length && (d = this.eq(0).data('combodate'))) {
           return d.getValue.apply(d, args);
         }        
@@ -4430,16 +4430,16 @@ $(function(){
 
 }(window.jQuery));
 /**
-Combodate input - dropdown date and time picker.    
+Combodate input - dropdown datetime and time picker.    
 Based on [combodate](http://vitalets.github.com/combodate) plugin (included). To use it you should manually include [momentjs](http://momentjs.com).
 
     <script src="js/moment.min.js"></script>
    
 Allows to input:
 
-* only date
+* only datetime
 * only time 
-* both date and time  
+* both datetime and time  
 
 Please note, that format is taken from momentjs and **not compatible** with bootstrap-datepicker / jquery UI datepicker.  
 Internally value stored as `momentjs` object. 
@@ -4449,7 +4449,7 @@ Internally value stored as `momentjs` object.
 @final
 @since 1.4.0
 @example
-<a href="#" id="dob" data-type="combodate" data-pk="1" data-url="/post" data-value="1984-05-15" data-title="Select date"></a>
+<a href="#" id="dob" data-type="combodate" data-pk="1" data-url="/post" data-value="1984-05-15" data-title="Select datetime"></a>
 <script>
 $(function(){
     $('#dob').editable({
@@ -4553,7 +4553,7 @@ $(function(){
        
        /*
        clear:  function() {
-          this.$input.data('datepicker').date = null;
+          this.$input.data('datepicker').datetime = null;
           this.$input.find('.active').removeClass('active');
        },
        */
@@ -4576,7 +4576,7 @@ $(function(){
         **/         
         inputclass: null,
         /**
-        Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+        Format used for sending value to server. Also applied when converting datetime from <code>data-value</code> attribute.<br>
         See list of tokens in [momentjs docs](http://momentjs.com/docs/#/parsing/string-format)  
         
         @property format 
@@ -4585,7 +4585,7 @@ $(function(){
         **/         
         format:'YYYY-MM-DD',
         /**
-        Format used for displaying date. Also applied when converting date from element's text on init.   
+        Format used for displaying datetime. Also applied when converting datetime from element's text on init.   
         If not specified equals to `format`.
         
         @property viewformat 
@@ -4613,7 +4613,7 @@ $(function(){
         
         /*
         (not implemented yet)
-        Text shown as clear date button. 
+        Text shown as clear datetime button. 
         If <code>false</code> clear button will not be rendered.
         
         @property clear 
@@ -5016,7 +5016,7 @@ Editableform based on Twitter Bootstrap 3
 			// Processed options
 			var o = this.o = $.extend({}, this._o);
 
-			// Check if "de-DE" style date is available, if not language should
+			// Check if "de-DE" style datetime is available, if not language should
 			// fallback to 2 letter code eg "de"
 			var lang = o.language;
 			if (!dates[lang]) {
@@ -5352,7 +5352,7 @@ Editableform based on Twitter Bootstrap 3
 			} else if (date.getUTCFullYear() > year || (date.getUTCFullYear() == year && date.getUTCMonth() > month)) {
 				cls.push('new');
 			}
-			// Compare internal UTC date with local today, not UTC today
+			// Compare internal UTC datetime with local today, not UTC today
 			if (this.o.todayHighlight &&
 				date.getUTCFullYear() == today.getFullYear() &&
 				date.getUTCMonth() == today.getMonth() &&
@@ -5413,7 +5413,7 @@ Editableform based on Twitter Bootstrap 3
 						// ISO 8601: First week contains first thursday.
 						// ISO also states week starts on Monday, but we can be more abstract here.
 						var
-							// Start of current week: based on weekstart/current date
+							// Start of current week: based on weekstart/current datetime
 							ws = new Date(+prevMonth + (this.o.weekStart - prevMonth.getUTCDay() - 7) % 7 * 864e5),
 							// Thursday of this week
 							th = new Date(+ws + (7 + 4 - ws.getUTCDay()) % 7 * 864e5),
@@ -5660,7 +5660,7 @@ Editableform based on Twitter Bootstrap 3
 					: function(){ return new_date.getUTCMonth() != new_month; };
 				new_month = month + dir;
 				new_date.setUTCMonth(new_month);
-				// Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected date to 0-11
+				// Dec -> Jan (12) or Jan -> Dec (-1) -- limit expected datetime to 0-11
 				if (new_month < 0 || new_month > 11)
 					new_month = (new_month + 12) % 12;
 			} else {
@@ -5673,7 +5673,7 @@ Editableform based on Twitter Bootstrap 3
 				new_date.setUTCDate(day);
 				test = function(){ return new_month != new_date.getUTCMonth(); };
 			}
-			// Common date-resetting loop -- if date is beyond end of month, make it
+			// Common datetime-resetting loop -- if datetime is beyond end of month, make it
 			// end of month
 			while (test()){
 				new_date.setUTCDate(--day);
@@ -5862,7 +5862,7 @@ Editableform based on Twitter Bootstrap 3
 	function opts_from_locale(lang){
 		// Derive options from locale plugins
 		var out = {};
-		// Check if "de-DE" style date is available, if not language should
+		// Check if "de-DE" style datetime is available, if not language should
 		// fallback to 2 letter code eg "de"
 		if (!dates[lang]) {
 			lang = lang.split('-')[0]
@@ -5984,7 +5984,7 @@ Editableform based on Twitter Bootstrap 3
 			var separators = format.replace(this.validParts, '\0').split('\0'),
 				parts = format.match(this.validParts);
 			if (!separators || !separators.length || !parts || parts.length === 0){
-				throw new Error("Invalid date format.");
+				throw new Error("Invalid datetime format.");
 			}
 			return {separators: separators, parts: parts};
 		},
@@ -6178,13 +6178,13 @@ Bootstrap-datepicker.
 Description and examples: https://github.com/eternicode/bootstrap-datepicker.  
 For **i18n** you should include js file from here: https://github.com/eternicode/bootstrap-datepicker/tree/master/js/locales
 and set `language` option.  
-Since 1.4.0 date has different appearance in **popup** and **inline** modes. 
+Since 1.4.0 datetime has different appearance in **popup** and **inline** modes. 
 
 @class date
 @extends abstractinput
 @final
 @example
-<a href="#" id="dob" data-type="date" data-pk="1" data-url="/post" data-title="Select date">15/05/1984</a>
+<a href="#" id="dob" data-type="datetime" data-pk="1" data-url="/post" data-title="Select datetime">15/05/1984</a>
 <script>
 $(function(){
     $('#dob').editable({
@@ -6320,9 +6320,9 @@ $(function(){
        },
        
        /*
-        For incorrect date bootstrap-datepicker returns current date that is not suitable
+        For incorrect datetime bootstrap-datepicker returns current datetime that is not suitable
         for datefield.
-        This function returns null for incorrect date.  
+        This function returns null for incorrect datetime.  
        */
        parseDate: function(str, format) {
            var date = null, formattedBack;
@@ -6345,14 +6345,14 @@ $(function(){
         @property tpl 
         @default <div></div>
         **/         
-        tpl:'<div class="editable-date well"></div>',
+        tpl:'<div class="editable-datetime well"></div>',
         /**
         @property inputclass 
         @default null
         **/
         inputclass: null,
         /**
-        Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+        Format used for sending value to server. Also applied when converting datetime from <code>data-value</code> attribute.<br>
         Possible tokens are: <code>d, dd, m, mm, yy, yyyy</code>  
 
         @property format 
@@ -6361,7 +6361,7 @@ $(function(){
         **/
         format:'yyyy-mm-dd',
         /**
-        Format used for displaying date. Also applied when converting date from element's text on init.   
+        Format used for displaying datetime. Also applied when converting datetime from element's text on init.   
         If not specified equals to <code>format</code>
 
         @property viewformat 
@@ -6389,7 +6389,7 @@ $(function(){
             autoclose: false
         },
         /**
-        Text shown as clear date button. 
+        Text shown as clear datetime button. 
         If <code>false</code> clear button will not be rendered.
 
         @property clear 
@@ -6429,7 +6429,7 @@ Automatically shown in inline mode.
             this.setClass();
             this.setAttr('placeholder');
     
-            //bootstrap-datepicker is set `bdateicker` to exclude conflict with jQuery UI one. (in date.js)        
+            //bootstrap-datepicker is set `bdateicker` to exclude conflict with jQuery UI one. (in datetime.js)        
             this.$tpl.bdatepicker(this.options.datepicker);
             
             //need to disable original event handlers
@@ -6465,7 +6465,7 @@ Automatically shown in inline mode.
         /**
         @property tpl 
         **/         
-        tpl:'<div class="input-append date"><input type="text"/><span class="add-on"><i class="icon-th"></i></span></div>',
+        tpl:'<div class="input-append datetime"><input type="text"/><span class="add-on"><i class="icon-th"></i></span></div>',
         /**
         @property inputclass 
         @default 'input-small'
@@ -6500,7 +6500,7 @@ and set `language` option.
 @final
 @since 1.4.4
 @example
-<a href="#" id="last_seen" data-type="datetime" data-pk="1" data-url="/post" title="Select date & time">15/03/2013 12:45</a>
+<a href="#" id="last_seen" data-type="datetime" data-pk="1" data-url="/post" title="Select datetime & time">15/03/2013 12:45</a>
 <script>
 $(function(){
     $('#last_seen').editable({
@@ -6589,7 +6589,7 @@ $(function(){
         },
 
         html2value: function(html) {
-            //parseDate return utc date!
+            //parseDate return utc datetime!
             var value = this.parseDate(html, this.parsedViewFormat); 
             return value ? this.fromUTC(value) : null;
         },
@@ -6600,7 +6600,7 @@ $(function(){
        },
 
        str2value: function(str) {
-           //parseDate return utc date!
+           //parseDate return utc datetime!
            var value = this.parseDate(str, this.parsedFormat);
            return value ? this.fromUTC(value) : null;
        },
@@ -6616,7 +6616,7 @@ $(function(){
        },
 
        input2value: function() { 
-           //date may be cleared, in that case getDate() triggers error
+           //datetime may be cleared, in that case getDate() triggers error
            var dt = this.$input.data('datetimepicker');
            return dt.date ? dt.getDate() : null;
        },
@@ -6641,20 +6641,20 @@ $(function(){
            });
        },
 
-       //convert date from local to utc
+       //convert datetime from local to utc
        toUTC: function(value) {
          return value ? new Date(value.valueOf() - value.getTimezoneOffset() * 60000) : value;  
        },
 
-       //convert date from utc to local
+       //convert datetime from utc to local
        fromUTC: function(value) {
          return value ? new Date(value.valueOf() + value.getTimezoneOffset() * 60000) : value;  
        },
 
        /*
-        For incorrect date bootstrap-datetimepicker returns current date that is not suitable
+        For incorrect datetime bootstrap-datetimepicker returns current datetime that is not suitable
         for datetimefield.
-        This function returns null for incorrect date.  
+        This function returns null for incorrect datetime.  
        */
        parseDate: function(str, format) {
            var date = null, formattedBack;
@@ -6677,14 +6677,14 @@ $(function(){
         @property tpl 
         @default <div></div>
         **/         
-        tpl:'<div class="editable-date well"></div>',
+        tpl:'<div class="editable-datetime well"></div>',
         /**
         @property inputclass 
         @default null
         **/
         inputclass: null,
         /**
-        Format used for sending value to server. Also applied when converting date from <code>data-value</code> attribute.<br>
+        Format used for sending value to server. Also applied when converting datetime from <code>data-value</code> attribute.<br>
         Possible tokens are: <code>d, dd, m, mm, yy, yyyy, h, i</code>  
         
         @property format 
@@ -6694,7 +6694,7 @@ $(function(){
         format:'yyyy-mm-dd hh:ii',
         formatType:'standard',
         /**
-        Format used for displaying date. Also applied when converting date from element's text on init.   
+        Format used for displaying datetime. Also applied when converting datetime from element's text on init.   
         If not specified equals to <code>format</code>
         
         @property viewformat 
@@ -6715,7 +6715,7 @@ $(function(){
             autoclose: false
         },
         /**
-        Text shown as clear date button. 
+        Text shown as clear datetime button. 
         If <code>false</code> clear button will not be rendered.
 
         @property clear 
@@ -6788,7 +6788,7 @@ Automatically shown in inline mode.
         /**
         @property tpl 
         **/         
-        tpl:'<div class="input-append date"><input type="text"/><span class="add-on"><i class="icon-th"></i></span></div>',
+        tpl:'<div class="input-append datetime"><input type="text"/><span class="add-on"><i class="icon-th"></i></span></div>',
         /**
         @property inputclass 
         @default 'input-medium'

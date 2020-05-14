@@ -1,5 +1,7 @@
 package com.user.common.model;
 
+import java.util.Map;
+
 public class CodeMsg {
 	
 	private String code;
@@ -7,8 +9,8 @@ public class CodeMsg {
 	
 	//通用的错误码
 	public static CodeMsg SUCCESS = new CodeMsg("0000", "成功");
-	public static CodeMsg ERROR = new CodeMsg("-1", "系统异常");
-	public static CodeMsg PARAM_ERROR = new CodeMsg("-1", "系统异常");
+	public static CodeMsg SYS_ERROR = new CodeMsg("-1", "系统异常");
+	public static CodeMsg PARAM_ERROR = new CodeMsg("-2", "参数异常");
 	
 	
 	private CodeMsg() {
@@ -22,6 +24,12 @@ public class CodeMsg {
 	public CodeMsg(String code, String message ) {
 		this.code = code;
 		this.message = message;
+	}
+
+
+	public CodeMsg(Map<String,String> map) {
+		this.code = map.get("code");
+		this.message = map.get("message");
 	}
 	
 	public String getCode() {

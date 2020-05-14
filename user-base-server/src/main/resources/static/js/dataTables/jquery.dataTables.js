@@ -11906,11 +11906,11 @@
 	
 		/**
 		 * The type allows you to specify how the data for this column will be
-		 * ordered. Four types (string, numeric, date and html (which will strip
-		 * HTML tags before ordering)) are currently available. Note that only date
+		 * ordered. Four types (string, numeric, datetime and html (which will strip
+		 * HTML tags before ordering)) are currently available. Note that only datetime
 		 * formats understood by Javascript's Date() object will be accepted as type
-		 * date. For example: "Mar 26, 2008 5:03 PM". May take the values: 'string',
-		 * 'numeric', 'date' or 'html' (by default). Further types can be adding
+		 * datetime. For example: "Mar 26, 2008 5:03 PM". May take the values: 'string',
+		 * 'numeric', 'datetime' or 'html' (by default). Further types can be adding
 		 * through plug-ins.
 		 *  @type string
 		 *  @default null <i>Auto-detected from raw data</i>

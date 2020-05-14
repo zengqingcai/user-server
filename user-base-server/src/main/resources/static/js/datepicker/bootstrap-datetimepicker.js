@@ -1275,7 +1275,7 @@
           return new_month !== new_date.getUTCMonth();
         };
       }
-      // Common date-resetting loop -- if date is beyond end of month, make it
+      // Common datetime-resetting loop -- if datetime is beyond end of month, make it
       // end of month
       while (test()) {
         new_date.setUTCDate(--day);

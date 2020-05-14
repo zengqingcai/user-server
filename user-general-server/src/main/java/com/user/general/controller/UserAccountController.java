@@ -1,6 +1,6 @@
 package com.user.general.controller;
 
-import com.github.pagehelper.PageInfo;
+import com.user.common.model.CodeMsg;
 import com.user.general.entity.domain.UserAccount;
 import com.user.general.service.UserAccountService;
 import io.swagger.annotations.Api;
@@ -25,18 +25,15 @@ public class UserAccountController {
     @Autowired
     private UserAccountService userAccountService;
 
-    @RequestMapping(value = "/findPage",method = RequestMethod.POST)
-    @ApiOperation(value = "查询用户分页列表-account")
-    @ResponseBody
-    public PageInfo<UserAccount> findPage(@RequestBody UserAccount userAccount){
-        return userAccountService.findPage(userAccount);
-    }
 
 
     @RequestMapping(value = "/saveUserAccount",method = RequestMethod.POST)
     @ApiOperation(value = "添加用户-account")
     @ResponseBody
-    public Integer saveUserAccount(@RequestBody UserAccount userAccount){
+    public Object saveUserAccount(@RequestBody UserAccount userAccount){
+        userAccount.setId(null);
+        if(userAccount.getUserId()==null || userAccount.getUserId()==0)
+            return CodeMsg.PARAM_ERROR;
         return userAccountService.saveUserAccount(userAccount);
     }
 
@@ -51,7 +48,11 @@ public class UserAccountController {
     @RequestMapping(value = "/updateUserAccount",method = RequestMethod.POST)
     @ApiOperation(value = "修改用户-account")
     @ResponseBody
-    public Integer updateUserAccount(@RequestBody UserAccount userAccount){
+    public Object updateUserAccount(@RequestBody UserAccount userAccount){
+        if(userAccount.getId()==null || userAccount.getId()==0)
+            return CodeMsg.PARAM_ERROR;
+        if(userAccount.getUserId()==0)
+            return CodeMsg.PARAM_ERROR;
         return userAccountService.updateUserAccount(userAccount);
     }
 }
