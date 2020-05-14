@@ -129,6 +129,7 @@ public class StringUtils {
 
     public static String getSmsCode(){
         String random=(int)((Math.random()*9+1)*100000)+"";
+        System.out.println("短信验证码："+random);
         return random;
     }
 
