@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
+ * 普通用户启动器
  * @Authod:zeng
  * @Date: 2020/3/3 10:18
  * @Version: 0.0.1

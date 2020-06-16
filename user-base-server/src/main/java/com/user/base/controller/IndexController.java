@@ -1,6 +1,7 @@
 package com.user.base.controller;
 
-import com.user.base.test.Menu;
+import com.alibaba.fastjson.JSONObject;
+import com.user.base.entity.Menu;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,16 @@ public class IndexController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String toIndex(ModelMap map) {
         return "index";
+    }
+
+    @RequestMapping(value = "initMenu", method = RequestMethod.POST)
+    @ResponseBody
+    public Object initMenu(){
+        JSONObject jsonObject = new JSONObject();
+        List<Menu> list = Menu.initMenu();
+        jsonObject.put("data",list);
+        jsonObject.put("code",200);
+        return jsonObject;
     }
 
 

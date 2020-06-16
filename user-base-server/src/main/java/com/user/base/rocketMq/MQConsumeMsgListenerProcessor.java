@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
-@Component
+//@Component
 public class MQConsumeMsgListenerProcessor implements MessageListenerConcurrently {
 
     private static final Logger logger = LoggerFactory.getLogger(MQConsumeMsgListenerProcessor.class);

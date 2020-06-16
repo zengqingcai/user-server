@@ -153,4 +153,13 @@
         update t_bu_user_base set ava = #{ava,jdbcType=INTEGER}  where id = #{id}
     </update>
 
+
+    <select id="queryUserInfoByParams" parameterType="java.util.Map"
+            resultType="com.user.general.entity.dto.response.UserInfoQueryRes" >
+        SELECT base.id, base.code,info.user_name,info.address,info.age,info.sex
+        FROM t_bu_user_base base,t_bu_user_info info
+        WHERE base.id = info.user_id
+    </select>
+
+
 </mapper>

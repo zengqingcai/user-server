@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.base.dao.medical.MedicalCheckMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.user.base.entity.model.medical.MedicalCheck">
+        <id column="id" property="id" />
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="item_efficacy" property="itemEfficacy" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <sql id="baseCol">
+        id,item_code,item_name,item_efficacy,status
+    </sql>
+
+    <select id="queryByParams" resultMap="BaseResultMap"
+            parameterType="com.user.base.entity.model.medical.MedicalCheck" >
+        select
+        <include refid="baseCol" />
+        from t_bu_medical_check
+        <where>
+            <if test="id != null">
+                and id != #{id}
+            </if>
+            <if test="itemEfficacy !=null and itemEfficacy !=''">
+                and item_efficacy = #{itemEfficacy}
+            </if>
+            <if test="itemCode !=null and itemCode!=''">
+                and item_code = #{itemCode}
+            </if>
+            <if test="itemName !=null and itemName!=''">
+                and item_name = #{itemName}
+            </if>
+            <if test="status !=null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>

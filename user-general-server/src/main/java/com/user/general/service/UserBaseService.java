@@ -3,8 +3,10 @@ package com.user.general.service;
 import com.github.pagehelper.PageInfo;
 import com.user.common.model.CodeMsg;
 import com.user.general.entity.domain.UserBase;
+import com.user.general.entity.dto.response.UserInfoQueryRes;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Authod:zeng
@@ -26,4 +28,6 @@ public interface UserBaseService {
 
 
     CodeMsg updateUserBase(UserBase userBase);
+
+    PageInfo<UserInfoQueryRes> queryUserInfoByParams(Map<String,Object> params);
 }

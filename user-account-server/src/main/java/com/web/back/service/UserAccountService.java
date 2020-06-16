@@ -1,6 +1,6 @@
 package com.web.back.service;
 
-import com.user.account.entity.model.UserAccount;
+import com.web.back.entity.model.UserAccount;
 
 import java.util.List;
 

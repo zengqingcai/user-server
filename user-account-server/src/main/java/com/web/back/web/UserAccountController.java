@@ -1,11 +1,12 @@
 package com.web.back.web;
 
-import com.user.account.remote.AreaFeignService;
-import com.user.account.remote.CodeMsg;
-import com.user.account.remote.Permission;
+import com.web.back.comm.RequestBean;
 import com.web.back.comm.ResponseBean;
+import com.web.back.entity.model.UserAccount;
 import com.web.back.remote.AreaFeignService;
 import com.web.back.remote.CodeMsg;
+import com.web.back.remote.Permission;
+import com.web.back.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.user.account.comm.RequestBean;
-import com.user.account.comm.ResponseBean;
-import com.user.account.entity.model.UserAccount;
-import com.user.account.service.UserAccountService;
 
 import io.swagger.annotations.ApiOperation;
 

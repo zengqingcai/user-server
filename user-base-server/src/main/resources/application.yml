@@ -83,13 +83,10 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          strategy: SEMAPHORE
+# 快速失败配置
+feign:
+  hystrix:
+    enabled: true
 
 #自定义配置
 mail:

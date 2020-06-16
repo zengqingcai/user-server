@@ -2,9 +2,11 @@ package com.user.general.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.user.general.entity.domain.UserBase;
+import com.user.general.entity.dto.response.UserInfoQueryRes;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,5 +30,7 @@ public interface UserBaseMapper extends BaseMapper<UserBase> {
     Integer updateBySelective(UserBase userAccount);
 
     Integer updateSetStatus(UserBase userAccount);
+
+    List<UserInfoQueryRes> queryUserInfoByParams(Map<String,Object> params);
 
 }

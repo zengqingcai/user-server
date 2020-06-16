@@ -123,6 +123,7 @@
         <module>user-common</module>
         <module>user-general-server</module>
 		<module>user-doctor-server</module>
+		<module>user-system-server</module>
 	</modules>
 	
 	<!--<build>-->

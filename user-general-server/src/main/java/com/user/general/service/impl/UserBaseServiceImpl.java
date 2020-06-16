@@ -6,6 +6,7 @@ import com.user.common.model.CodeMsg;
 import com.user.common.model.CodeMsgEnum;
 import com.user.general.dao.UserBaseMapper;
 import com.user.general.entity.domain.UserBase;
+import com.user.general.entity.dto.response.UserInfoQueryRes;
 import com.user.general.service.UserBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Authod:zeng
@@ -69,6 +71,18 @@ public class UserBaseServiceImpl implements UserBaseService {
             return CodeMsg.PARAM_ERROR;
         }
         return new CodeMsg(CodeMsgEnum.KEY_EXCEPTION);
+    }
+
+    @Override
+    public PageInfo<UserInfoQueryRes> queryUserInfoByParams(Map<String, Object> params) {
+        Object object = params.get("currentPage");
+        System.out.println(object);
+        Integer currentPage = Integer.parseInt(params.get("currentPage").toString());
+        Integer pageSize = Integer.parseInt(params.get("pageSize").toString());
+        PageHelper.startPage(currentPage,pageSize);
+        List<UserInfoQueryRes> userBaseList = userBaseMapper.queryUserInfoByParams(params);
+        PageInfo<UserInfoQueryRes> pageInfo = new PageInfo(userBaseList);
+        return pageInfo;
     }
 
     @Override

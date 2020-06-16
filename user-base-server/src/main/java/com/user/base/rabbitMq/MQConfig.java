@@ -7,7 +7,7 @@ import org.springframework.amqp.core.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class MQConfig {
 
 	public static final String QUEUE = "queue";

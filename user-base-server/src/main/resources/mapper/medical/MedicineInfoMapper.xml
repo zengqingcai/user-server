@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.base.dao.medical.MedicineInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.user.base.entity.model.medical.MedicineInfo">
+        <id column="id" property="id" />
+        <result column="medicine_base_id" property="medicineBaseId" />
+        <result column="introduction" property="introduction" />
+        <result column="efficacy" property="efficacy" />
+        <result column="price" property="price" />
+        <result column="unit" property="unit" />
+        <result column="production_time" property="productionTime" />
+        <result column="production_addr" property="productionAddr" />
+        <result column="production_company" property="productionCompany" />
+        <result column="specification" property="specification" />
+        <result column="shape" property="shape" />
+        <result column="note" property="note" />
+        <result column="ct" property="ct" />
+        <result column="ut" property="ut" />
+        <result column="cid" property="cid" />
+        <result column="uid" property="uid" />
+        <result column="ava" property="ava" />
+    </resultMap>
+
+    <sql id="baseCol">
+        id,medicine_base_id,introduction,efficacy,price,unit,production_time,
+        production_addr,production_company,specification,shape,note,ct,ut,cid,uid,ava
+    </sql>
+
+    <select id="queryByParams" resultMap="BaseResultMap"
+            parameterType="com.user.base.entity.model.medical.MedicineInfo" >
+        select
+        <include refid="baseCol" />
+        from t_bu_medicine_info
+        <where>
+            <if test="medicineBaseId !=null">
+                and medicine_base_id = #{medicineBaseId}
+            </if>
+            <if test="introduction !=null and introduction!=''">
+                and introduction = #{introduction}
+            </if>
+            <if test="efficacy !=null and efficacy!=''">
+                and efficacy = #{efficacy}
+            </if>
+            <if test="price !=null">
+                and price = #{price}
+            </if>
+            <if test="unit !=null">
+                and unit = #{unit}
+            </if>
+            <if test="productionTime !=null">
+                and production_time = #{productionTime}
+            </if>
+            <if test="productionAddr !=null and productionAddr!=''">
+                and production_addr = #{productionAddr}
+            </if>
+            <if test="productionCompany !=null and productionCompany!=''">
+                and production_company = #{productionCompany}
+            </if>
+            <if test="specification !=null">
+                and specification = #{specification}
+            </if>
+            <if test="shape !=null">
+                and shape = #{shape}
+            </if>
+            <if test="note !=null and note!=''">
+                and note = #{note}
+            </if>
+            <if test="ct !=null">
+                and ct = #{ct}
+            </if>
+            <if test="ut !=null">
+                and ut = #{ut}
+            </if>
+            <if test="cid !=null">
+                and cid = #{cid}
+            </if>
+            <if test="uid !=null">
+                and uid = #{uid}
+            </if>
+            <if test="ava !=null">
+                and ava = #{ava}
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-@Configuration
+//@Configuration
 public class MQProducerConfiguration {
 
    public static final Logger LOGGER = LoggerFactory.getLogger(MQProducerConfiguration.class);

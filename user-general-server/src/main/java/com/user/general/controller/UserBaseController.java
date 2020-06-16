@@ -3,6 +3,7 @@ package com.user.general.controller;
 import com.github.pagehelper.PageInfo;
 import com.user.common.model.CodeMsg;
 import com.user.general.entity.domain.UserBase;
+import com.user.general.entity.dto.response.UserInfoQueryRes;
 import com.user.general.service.UserBaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * @Authod:zeng
@@ -57,5 +60,12 @@ public class UserBaseController {
         return userBaseService.loadUserBase(userBaseId);
     }
 
+
+    @RequestMapping(value = "/queryUserInfoByParams",method = RequestMethod.POST)
+    @ApiOperation(value = "查询用户资料")
+    @ResponseBody
+    public PageInfo<UserInfoQueryRes> queryUserInfoByParams(@RequestBody Map<String,Object> params){
+        return userBaseService.queryUserInfoByParams(params);
+    }
 
 }
