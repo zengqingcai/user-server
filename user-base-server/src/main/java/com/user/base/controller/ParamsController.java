@@ -40,6 +40,7 @@ public class ParamsController {
         modelMap.put("selectModel",requestDTO);
         modelMap.put("paramsList",list);
         modelMap.put("page",page);
+
         return "system/params_list";
     }
 

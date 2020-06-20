@@ -2,10 +2,10 @@ package com.user.base.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.user.base.common.CommonPage;
-import com.user.base.common.RequestBean;
 import com.user.base.common.ResponseBean;
 import com.user.base.entity.model.Role;
 import com.user.base.service.RoleService;
+import com.user.common.model.RequestBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,14 +79,14 @@ public class RoleController {
     @ApiOperation(value = "查询角色分页列表")
     @ResponseBody
     public ResponseBean<PageInfo<Role>> findPage(@RequestBody @Validated RequestBean<Role> requestBean){
-        return ResponseBean.success(roleService.findPage(requestBean.getData()));
+        return ResponseBean.success(roleService.findPage(requestBean.getItem()));
     }
 
     @RequestMapping(value = "/saveRole",method = RequestMethod.POST)
     @ApiOperation(value = "添加角色")
     @ResponseBody
     public ResponseBean<Integer> saveRole(@Validated @RequestBody RequestBean<Role> requestBean){
-        return ResponseBean.success(roleService.insertSelective(requestBean.getData()));
+        return ResponseBean.success(roleService.insertSelective(requestBean.getItem()));
     }
 
 
@@ -94,7 +94,7 @@ public class RoleController {
     @ApiOperation(value = "修改角色")
     @ResponseBody
     public ResponseBean<Integer> updateRole(@Validated @RequestBody RequestBean<Role> requestBean){
-        return ResponseBean.success(roleService.updateSelective(requestBean.getData()));
+        return ResponseBean.success(roleService.updateSelective(requestBean.getItem()));
     }
 
 
@@ -103,7 +103,7 @@ public class RoleController {
     @ApiOperation(value = "修改角色-添加权限")
     @ResponseBody
     public ResponseBean<Integer> updateRolePermission(@Validated @RequestBody RequestBean<Map<String,Object>> requestBean){
-        return ResponseBean.success(roleService.editPermission(requestBean.getData()));
+        return ResponseBean.success(roleService.editPermission(requestBean.getItem()));
     }
 
 

@@ -7,8 +7,8 @@ import com.user.base.dao.PermissionMapper;
 import com.user.base.entity.dto.permission.PermissionListDTO;
 import com.user.base.entity.model.Permission;
 import com.user.base.service.PermissionService;
-import com.user.common.exception.BuExceptionEnum;
-import com.user.common.exception.BusinessException;
+//import com.user.common.exception.BuExceptionEnum;
+//import com.user.common.exception.BusinessException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class PermissionServiceImpl implements PermissionService {
         Permission permission1 = new Permission();
         permission1.setCode(permission.getCode());
         if(permissionMapper.countByCode(permission1)>0){
-            throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
+            //throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
         }
         //排序的设置
         if(permission.getParentId()==null)
@@ -75,14 +75,14 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Integer updateBySelective(Permission permission) {
         if(permission.getId() == null || permission.getId() ==0) {
-            throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
+            //throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
         }
         if(permission.getCode() != null) {
             Permission permission1 = new Permission();
             permission1.setCode(permission.getCode());
             permission1.setId(permission.getId());
             if (permissionMapper.countByCode(permission1) > 0) {
-                throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
+                //throw new BusinessException(BuExceptionEnum.PERMISSION_CODE_AGAINT);
             }
         }
         return permissionMapper.updateBySelective(permission);

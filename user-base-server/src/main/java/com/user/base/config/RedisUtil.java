@@ -103,10 +103,13 @@ public final class RedisUtil {
 
     public Object get(String key) {
         Object result = null;
+        ValueOperations<String,Object> operations = redisTemplate.opsForValue();
+        result = operations.get(key);
+        return result;
 
 
 
-        return key == null ? null : redisTemplate.opsForValue().get(key);
+        //return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
 

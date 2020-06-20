@@ -14,8 +14,6 @@ import com.user.base.entity.model.User;
 import com.user.base.entity.model.UserRole;
 import com.user.base.service.RoleService;
 import com.user.base.service.UserService;
-import com.user.common.exception.BuExceptionEnum;
-import com.user.common.exception.BusinessException;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,7 +202,7 @@ public class SysUserController {
     public ResponseBean<Integer> updateUserStatus(@RequestBody Map<String,Object> map){
         User user = new User();
         if(map.get("id") == null || Integer.valueOf(map.get("id").toString())==0 || map.get("status") ==null){
-            throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
+            //throw new BusinessException(BuExceptionEnum.ILLEGAL_PARAMETERS);
         }
         user.setId(Integer.valueOf(map.get("id").toString()));
         user.setStatus(Integer.valueOf(map.get("status").toString()));

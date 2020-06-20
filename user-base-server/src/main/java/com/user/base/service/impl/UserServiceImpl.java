@@ -11,6 +11,7 @@ import com.user.base.entity.model.UserRole;
 import com.user.common.exception.BuExceptionEnum;
 import com.user.common.exception.BusinessException;
 import com.user.common.utils.codec.MD5Util;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.user.base.dao.UserMapper;
